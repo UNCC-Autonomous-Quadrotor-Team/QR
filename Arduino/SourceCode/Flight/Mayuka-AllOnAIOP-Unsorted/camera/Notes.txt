@@ -1,0 +1,4 @@
+Notes:
+
+- Wii Camera coordinate outputs default start with origin in top right corner
+- Wii camera randomly assigns blob IDs

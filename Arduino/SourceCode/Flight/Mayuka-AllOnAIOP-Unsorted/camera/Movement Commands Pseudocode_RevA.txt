@@ -1,0 +1,153 @@
+Quadrotor - Raspberry Pi - Movement Commands
+
+
+
+******************************************************************************************************************
+******************************************************************************************************************
+
+
+Revision Updates:
+9/6/13	The code has been consolidated to make two main functions: 'Move_and_Sense' and 'Detection'. This is 
+	easier to understand and requires less complicated passing data between functions. 
+
+	Also in this revision, 'Detection' has been simplfied in interest of testing quickly. The pseudocode for 
+	a more elaborate 'Detection' behavior is available on Google Drive.
+
+
+
+******************************************************************************************************************
+******************************************************************************************************************
+
+
+**Main Code**
+
+Explanation:
+
+	The quadrotor will move to hover at a desired distance with reference to a beacon system. The system
+	initializes then begins it's main functions: 'Detection' where the quadrotor seeks to dtect the beacon
+	and 'Move_and_Sense' where the quadrotor uses a vison system to navigate to a desired position. 
+
+
+******************************************************************************************************************
+
+
+IMPORT serial communication library
+IMPORT library to communicate movement commands to Autopilot
+
+INIT bidirectional serial port to IR camera, reads string with IR blob name and coordinate points
+INIT bidirectional serial port to Autopilot
+
+WHILE signal from Autopilot is FALSE
+	READ output from Autopilot to wait to start the program
+ENDWHILE
+OUTPUT to turn on LED indicator that quadrotor is initiating movement
+
+RUN function 'Detection' which will find begin function 'Move_and_Sense' once the beacon is located
+
+
+******************************************************************************************************************
+******************************************************************************************************************
+
+
+Function: Detection
+
+Explanation:
+
+	The quadrotor attempts to discover and orient it's altitude with the IR beacon. The quadrotor is directed
+	to increase and decrease altitude in search of the beacon. If the becon is not found the quadrotor will
+	land and turn on an LED to signify it is powered-down and safe to approach, at which point, the program
+	must be reset by the user. 
+
+
+******************************************************************************************************************
+
+
+DEFINE function Detection
+	IF sonar detects quadrotor landed
+		OUTPUT to Autopilot to rise off the ground
+	WHILE sonar sensor describes altitude less than predetermined distance (Increasing altitude)
+		OUTPUT to Autopilot to increase altitude
+		INPUT data from IR camera 
+		IF points are logical and found in the middle Y coordinates within a predetermined tolerance
+			RUN function 'Move_and_Sense'
+	ENDWHILE
+	WHILE sonar sensor describes altitude greater than predetermined distance (Decreasing altitude)
+		OUTPUT to Autopilot to increase altitude
+		INPUT data from IR camera 
+		IF points are logical and found in the middle Y coordinates within a predetermined tolerance
+			RUN function 'Move_and_Sense'
+	ENDWHILE
+	
+
+	WHILE 1 quadrotor lands for user reset as the beacon was not found
+		OUTPUT to Autopilot to remove power from all motors and land
+		OUTPUT to turn on LED to denote the quadrotor is powered-down safe to approach
+	ENDWHILE
+ENDDEINE
+
+
+******************************************************************************************************************
+******************************************************************************************************************
+
+
+Function: Move_and_Sense
+
+Explaination:
+	
+	The quadrotor seeks information from the vision system, triangulates it's location and moves towards 
+	the desired position. This behavior repeats until the beacon is lost at which point the quadrotor 
+	initiates the function 'Detection'.
+
+
+******************************************************************************************************************
+
+
+DEFINE function Move_and Sense
+	WHILE 1 the function continues if beacon is lost the system begins detection
+		
+
+
+		INPUT multiple coordinate data readings from IR Camera to list 
+		EXTRACT Blotch name, x and y coordinates from several IR readings into list	
+		IF any point value from IR Camera is illogical based on Y coordinates tolerance
+			WHILE attempts is less than predetermined try value AND data is illogical
+				READ data from IR camera
+				COMPUTE attempts value increase
+			ENDWHILE
+			IF attempts is large enough to exit the above loop
+				RUN function 'Detection'
+			ENDIF
+		ENDIF
+		COMPUTE average blotch coordinates for each blotch	
+
+
+
+		COMPUTE with trigonometry the position in space from average blotch coordinates
+		COMPUTE comparison between actual and desired position in space
+		
+
+
+		IF blotches are observed low on Y axis
+			OUTPUT to Autopilot to decrease altitude
+		ELSEIF blotches are observed high on Y axis
+			OUTPUT to Autopilot to increase altitude
+		ELSEIF blotches are observed shifted right on X axis
+			OUTPUT to Autopilot to move laterally right
+		ELSEIF blotches are observed shifted left on X axis
+			OUTPUT to Autopilot to move laterally left
+		ELSEIF blotches are observed unequal (Left further) distance from on X axis
+			OUTPUT to Autopilot to rotate counter-clockwise about yaw
+		ELSEIF blotches are observed unequal Right further) distance from on X axis
+			OUTPUT to Autopilot to rotate clockwise about yaw
+		ELSEIF blotches are observed larger meaning quadrotor is too close to reference beacon
+			OUTPUT to Autopilot to move away from IR beacon
+		ELSEIF blotches are observed smaller meaning quadrotor is too far to reference beacon
+			OUTPUT to Autopilot to move towards the IR beacon
+		ELSEIF blotches are in desired positions 
+			OUTPUT to Autopilot to hover
+	ENDWHILE
+ENDDEFINE
+
+
+******************************************************************************************************************
+******************************************************************************************************************
