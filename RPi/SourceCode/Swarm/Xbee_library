@@ -1,0 +1,12 @@
+class Xbee: 
+    def __init__(self,serialport,baudrate):
+        self.ser = ser.Serial(
+            port = serialport,
+            baudrate=baudrate,
+            stopbits = 1,
+            pariy = 'N',
+            bytesize = 8,
+            )
+        
+
+    
