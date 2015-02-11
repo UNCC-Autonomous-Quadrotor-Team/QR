@@ -1,3 +1,4 @@
+
 import time as t
 import Xbee
 
@@ -16,7 +17,7 @@ xbee_obj = Xbee.Xbee(device_location,baudrate)
 # 02 - Collision detection alert
 # 03 - Command Issue. 
 # 04 - Movement Error/Reception Error 
-msg = 'Request Acknowledgement'
+msg = '{:02X} Hi'.format(0x01)
 address = 0xFFFF
 options = 0x00
 frame_id = 0x00
