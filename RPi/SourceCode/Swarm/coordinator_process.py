@@ -6,6 +6,8 @@ import Xbee
 
 
 device_location ='/dev/ttyUSB0'
+
+
 baudrate = '9600'
 xbee_obj = Xbee.Xbee(device_location,baudrate)
 
@@ -26,5 +28,7 @@ result = xbee_obj.SendTransmitRequest(msg,address,frame_id,options,1)
 #Listen on the channel for responses from the Nodes within the cluster.
 
 for i  in range(0,2) : 
-    xbee_obj.receive_packet()
+    recieved_messages = []
+    recieved_messages =  xbee_obj.receive_packet()
+    print xbee_obj.format_to_string(recieved_messages)
     t.sleep(2)
