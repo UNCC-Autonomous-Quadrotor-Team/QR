@@ -68,7 +68,7 @@ class Xbee:
         #Define lists  that will be used to store the byte arrays. 
         self.ValidRxDataFrames = [] # initalize a list to store validated data frames that were received.
         self.receive_buffer =[] #initialize a list variable to append bytes from the physical receive buffer in the UART register.
-        
+        self.rxmessages =[]  # initalize a list variable that will store all fully processed messages received. 
             
            
 
@@ -99,15 +99,15 @@ class Xbee:
 
             ####### BREAK APART THE DATA IN BUFFER TO CORRECT DATA FRAMES########################
             #split all contents in the receive buffer into seperate data frames delimited b 0x7E
-        msgs = self.receive_buffer_unescaped.split(bytes(b'\x7E'))
+        dataframes = self.receive_buffer_unescaped.split(bytes(b'\x7E'))
             
-        print  len(msgs) - 1 
-            #print type(msgs) DEBUG ONLY 
+        print  len(dataframes) - 1 
+            #print type(dataframes) DEBUG ONLY 
         
        #####VALIDATION####################
-        for msg in msgs[1:]: 
+        for dataframe in dataframes[1:]: 
                 #validate all of the frames. 
-            valid = self.Validate_frame(msg)
+            valid = self.Validate_frame(dataframe)
             print '----------------------'
             # print self.format_to_string(msg)
             # print 'Type:'
@@ -118,18 +118,22 @@ class Xbee:
             print valid
 
             
-       #display all of the verified  data frames FOR DEBUGGING ONLY
+       #Extract the valid data frames 
 
         for valid_dataframe  in self.ValidRxDataFrames :
             print '------------------------------------'
             print self.format_to_string(valid_dataframe)
-            print 'Data Message:'
-            print self.ExtractMesssage(valid_dataframe)
-                
+            self.ExtractMessage(valid_dataframe)
+
+        # Print rxmessages <for debugging only>    
+
+        for rxmessage in self.rxmessages :
+            print self.format_to_string(rxmessage)
+                  
                 
         
-        return self.ValidRxDataFrames
-                                             
+        return self.rxmessages
+                                              
                                              
                 
             
@@ -194,16 +198,20 @@ class Xbee:
                 
         return output 
 
-    def ExtractMesssage(self,dataframe):
+    def ExtractMessage(self,dataframe):
         #
        ## #THIS FUNCTION ASSUMES THAT THE START DELIMITER OF A VALIDATED DATAFRAME IS ALREADY STRIPPED OFF OF THE DATA FRAME############################################
 
-        data_frame_length = dataframe[1] # Since this is a verified data frame, the second byte will always be the LSB. TODO: read the MSB and LSB for super large data frames. 
+
+       end_of_message_length = dataframe[1] + 1 # Since this is a verified data frame, the second byte will always be the LSB. Since the MSB and LSB are first. An offset of 1 is applied. TODO: read the MSB and LSB for super large data frames. 
+
+
+       #note that list indexing is non inclusive for the upper bound. Although that is strange, to compensate this you will need to  add one to the upper bound.  
+       data = dataframe[6:(end_of_message_length + 1)] #Actual Data
+       nodeid = dataframe[3:5] #node id
+       data_message = nodeid + data # node id with actual data. nodeid will always come first and will be the first two bytes (16 bit addressing is used) 
         
-        array = np.array(dataframe)
-        data_message = array[[1,4]]
-        
-        return len(data_message)
+       return self.rxmessages.append(data_message)
          
         
         
