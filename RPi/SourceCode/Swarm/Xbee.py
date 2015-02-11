@@ -89,7 +89,7 @@ class Xbee:
             data_chunk = self.ser_conn.read(content_size_in_rx_buffer)
             content_size_in_rx_buffer -= len(data_chunk)
             self.receive_buffer.extend(data_chunk)
-
+            
 
 
 
@@ -129,12 +129,13 @@ class Xbee:
 
         for rxmessage in self.rxmessages :
             print self.format_to_string(rxmessage)
-                  
+        
                 
         
+         
         return self.rxmessages
                                               
-                                             
+
                 
             
             
