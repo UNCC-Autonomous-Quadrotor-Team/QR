@@ -14,8 +14,12 @@ xbee_obj = Xbee.Xbee(device_location,baudrate)
 
 
 while 1: 
+    received_dataframes = []
+    t.sleep(1) 
+    
+    recevied_dataframes =xbee.obj.receive_packet()
 
-t.sleep(1) 
-
-xbee.obj.receive_packet()
-
+    if len(recevied_dataframes) > 0 :
+        message = 'Received'
+        xbee_obj.SendTransmitRequest(message)
+        

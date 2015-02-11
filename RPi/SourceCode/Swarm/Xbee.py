@@ -128,7 +128,7 @@ class Xbee:
                 
                 
         
-                
+        return self.ValidRxDataFrames
                                              
                                              
                 

@@ -25,6 +25,6 @@ result = xbee_obj.SendTransmitRequest(msg,address,frame_id,options,1)
 
 #Listen on the channel for responses from the Nodes within the cluster.
 
-for i  in 2 : 
+for i  in 4 : 
     xbee_obj.receive_packet()
     t.sleep(2)
