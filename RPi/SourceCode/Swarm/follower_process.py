@@ -17,7 +17,7 @@ while 1:
     received_dataframes = []
     t.sleep(1) 
     
-    recevied_dataframes =xbee.obj.receive_packet()
+    recevied_dataframes =xbee_obj.receive_packet()
 
     if len(recevied_dataframes) > 0 :
         message = 'Received'
