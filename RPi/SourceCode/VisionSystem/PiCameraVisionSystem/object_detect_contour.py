@@ -1,0 +1,33 @@
+import cv2 as cv
+import numpy as np
+import picamera
+import picamera.array
+import time
+import math
+
+with picamera.PiCamera() as camera:
+    camera.resolution=(320,240)
+    #camera.start_preview()
+    #time.sleep()
+    camera.capture('testimage.jpg')
+    #for video stream
+    #with picamera.array.PiRGBArray(camera) as stream:
+       # camera.capture(stream, format='bgr')
+       # image = stream.array
+
+image = cv.imread('/home/pi/testimage.jpg')
+
+imgray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+#ret, thresh = cv.threshold(imgray,127,255,0)
+#_,contours, _ = cv.findContours(thresh, cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+
+#cnt = contours[4]
+#imgray = cv.drawContours(thresh, [cnt], -1, (0,255,0), 3)
+
+
+#Outputs
+
+cv.imshow('Grayscale', imgray)
+#cv.imshow('Contours', thresh)
+cv.waitKey(0)
+cv.destroyAllWindows()
