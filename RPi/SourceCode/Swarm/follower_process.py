@@ -26,7 +26,7 @@ while 1:
     
 #    recevied_dataframes =xbee_obj.receive_packet()
     xbee_obj.receive_packet()
-#    if len(recevied_dataframes) > 0 :
- #       message = 'Acknowledgement Received'
-  #      xbee_obj.SendTransmitRequest(message,destination_address,frameid,options,1)
+    if len(recevied_dataframes) > 0 :
+        message = 'Acknowledgement Received'
+        xbee_obj.SendTransmitRequest(message,destination_address,frameid,options,1)
         
