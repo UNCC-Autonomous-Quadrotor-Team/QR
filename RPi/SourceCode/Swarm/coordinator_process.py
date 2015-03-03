@@ -18,7 +18,8 @@ xbee_obj = Xbee.Xbee(device_location,baudrate)
 # 02 - Collision detection alert
 # 03 - Command Issue. 
 # 04 - Movement Error/Reception Error 
-msg = 'Request Acknowledgement'
+#msg = 'Request Acknowledgement'
+msg = 25
 address = 0xFFFF
 options = 0x00
 frame_id = 0x00
@@ -34,6 +35,6 @@ for i  in range(0,2) :
     #print all contents in recieved_messages buffer. 
     for recieved_message in recieved_messages:
         print xbee_obj.format_to_string(recieved_message)
-
+        print '----------------------------------------------'
 
     t.sleep(2)

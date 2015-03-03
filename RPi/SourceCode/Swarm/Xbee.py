@@ -18,18 +18,27 @@ class Xbee:
     
         
 
-    def SendTransmitRequest(self,data_msg,address,frameid,options,verbose):
+    def SendTransmitRequest(self,raw_data_msg,destination_address,frameid,options,verbose):
         #setup the packet frame
-        if not data_msg:
+        if not raw_data_msg:
             return 0
+        if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
+            first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
+            second_byte_msg = (raw_data_msg & 0x00FF)
+            data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
+        else:
+            data_msg = raw_data_msg
+        
+
+        #convert to bytearray
         
 #FORMAT: <start delimiter (7E)] <Length: MSB LSB> <Frame Identifier> <Destination address High> <Destination Address Low> <Options>        <MSG>
 #SIZE:         <1 Byte>            < 2 bytes>     < 1 byte>              <1 byte>                    <1 byte>             <1 byte>  <up to 100 bytes>
         packet_header = '7E 00 {:02X} 01 {:02X} {:02X} {:02X} {:02X}'.format(
             len(data_msg) + 5,  # LSB LENGTH
             frameid,
-            (address & 0xFF00) >> 8  ,  # Destination MSB/High 
-            (address & 0x00FF),       # Destination Low Address
+            (destination_address & 0xFF00) >> 8 ,  # Destination MSB/High 
+            (destination_address & 0x00FF),       # Destination Low Address
             options,                  # options byte 
             )
 
@@ -58,6 +67,7 @@ class Xbee:
 
     
     def format_to_string(self,data_frame):
+        #convert the hexadecimals to a string format.
         return " ".join("{:02x}".format(i) for i in data_frame)
 
 
@@ -128,6 +138,7 @@ class Xbee:
         # Print rxmessages <for debugging only>    
 
         for rxmessage in self.rxmessages :
+            print' --------------------------'
             print self.format_to_string(rxmessage)
         
                 
@@ -208,7 +219,7 @@ class Xbee:
 
 
        #note that list indexing is non inclusive for the upper bound. Although that is strange, to compensate this you will need to  add one to the upper bound.  
-       data = dataframe[6:(end_of_message_length + 1)] #Actual Data
+       data = dataframe[7:(end_of_message_length + 1)] #Actual Data
        nodeid = dataframe[3:5] #node id
        data_message = nodeid + data # node id with actual data. nodeid will always come first and will be the first two bytes (16 bit addressing is used) 
         
