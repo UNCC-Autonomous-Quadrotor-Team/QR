@@ -12,9 +12,9 @@ xbee_obj = Xbee.Xbee(device_location,baudrate)
 
 #Parameters for packet transmission
 
-destination_address = 0x00 #coordinator destination <16 bit address>
+destination_address = 0x0000 #coordinator destination <16 bit address>
 options = 0x00 #no options specified
-frameid = 0x00 # frame id of 0 is used
+cmd_id = 2
 
 
 #listen on the Wireless channel for any transmissions. 
@@ -24,9 +24,9 @@ while 1:
 #    received_dataframes = []
     t.sleep(1) 
     
-#    recevied_dataframes =xbee_obj.receive_packet()
-    xbee_obj.receive_packet()
+    recevied_dataframes =xbee_obj.receive_packet()
+   # xbee_obj.receive_packet()
     if len(recevied_dataframes) > 0 :
         message = 'Acknowledgement Received'
-        xbee_obj.SendTransmitRequest(message,destination_address,frameid,options,1)
+        xbee_obj.SendTransmitRequest(message,destination_address,cmd_id,options,1)
         
