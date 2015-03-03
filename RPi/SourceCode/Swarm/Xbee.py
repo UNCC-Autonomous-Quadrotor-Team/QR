@@ -132,22 +132,23 @@ class Xbee:
 
             
        #Extract the valid data frames 
-
+#        print 'Valid dataframes'
         for valid_dataframe  in self.ValidRxDataFrames :
-            print '------------------------------------'
-            print self.format_to_string(valid_dataframe)
+ #           print '------------------------------------'
+        
+  #          print self.format_to_string(valid_dataframe)
             self.ExtractMessage(valid_dataframe)
 
         # Print rxmessages <for debugging only>    
-
-        for rxmessage in self.rxmessages :
-            print' --------------------------'
-            print self.format_to_string(rxmessage)
+   #     print 'Received Messages'
+    #    for rxmessage in self.rxmessages :
+     #       print' --------------------------'
+      #      print self.format_to_string(rxmessage)
         
                 
-        
+        return self.rxmessages 
          
-        return self.rxmessages
+        
                                               
 
                 

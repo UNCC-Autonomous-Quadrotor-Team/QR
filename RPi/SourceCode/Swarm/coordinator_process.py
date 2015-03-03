@@ -31,7 +31,7 @@ result = xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,1)
 for i  in range(0,2) : 
     recieved_messages = []
     recieved_messages =  xbee_obj.receive_packet()
-    
+   # xbee_obj.receive_packet()
     #print all contents in recieved_messages buffer. 
     for recieved_message in recieved_messages:
         print xbee_obj.format_to_string(recieved_message)
