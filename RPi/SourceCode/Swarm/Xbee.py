@@ -18,8 +18,10 @@ class Xbee:
     
         
 
-    def SendTransmitRequest(self,raw_data_msg,destination_address,frameid,options,verbose):
-        #setup the packet frame
+    def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
+       
+
+        #Convert the raw_data_msg into a byte array
         if not raw_data_msg:
             return 0
         if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
@@ -30,22 +32,23 @@ class Xbee:
             data_msg = raw_data_msg
         
 
-        #convert to bytearray
+        #Format the PACKET HEADER
         
-#FORMAT: <start delimiter (7E)] <Length: MSB LSB> <Frame Identifier> <Destination address High> <Destination Address Low> <Options>        <MSG>
-#SIZE:         <1 Byte>            < 2 bytes>     < 1 byte>              <1 byte>                    <1 byte>             <1 byte>  <up to 100 bytes>
-        packet_header = '7E 00 {:02X} 01 {:02X} {:02X} {:02X} {:02X}'.format(
-            len(data_msg) + 5,  # LSB LENGTH
-            frameid,
-            (destination_address & 0xFF00) >> 8 ,  # Destination MSB/High 
-            (destination_address & 0x00FF),       # Destination Low Address
+#FORMAT: <start delimiter (7E)] <Length: MSB LSB> <API IDENTIFIER> <Frame Identifier> <Destination address High> <Destination Address Low> <Options>  <cmd_id>      <MSG>
+#SIZE:         <1 Byte>            < 2 bytes>     < 1 byte>              <1 byte>              <1 byte>             <1 byte>         <1 byte>           <up to 100 bytes>
+        packet_header = '7E 00 {:02X} 01 00  {:02X} {:02X} {:02X} {:02X}'.format(
+            len(data_msg) + 6,  # LSB LENGTH
+            (destination_address & 0xFF00) >> 8 ,  # Destination MSB/High                   
+            (destination_address & 0x00FF),        # Destination Low Address
             options,                  # options byte 
+            cmd_id,                  #command id
             )
 
 
         #construct the Data Frame using packet header and data msg. 
         data_frame = bytearray.fromhex(packet_header)
         
+       
         data_frame.extend(data_msg)
         
         #calculate the checksum byte
