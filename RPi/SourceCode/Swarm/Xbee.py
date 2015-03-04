@@ -22,7 +22,7 @@ class Xbee:
        
 
         #CONVERT raw_data_msg INTO A BYTE ARRAY 
-        if not raw_data_msg:
+        if  raw_data_msg < 0:
             return 0
         if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
             first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
@@ -58,7 +58,7 @@ class Xbee:
         
         #Print the packet if verbose is set. 
         
-        if(verbose):
+        if(verbose == 1):
             print "TX Packet:" + self.format_to_string(data_frame)
         
 
@@ -74,7 +74,7 @@ class Xbee:
         return " ".join("{:02x}".format(i) for i in data_frame)
 
 
-    def receive_packet(self):
+    def receive_packet(self,verbose):
 
 
 
@@ -94,58 +94,64 @@ class Xbee:
         content_size_in_rx_buffer = self.ser_conn.inWaiting()
             
             #for debugging only. This prints out the amount of bytes in buffer.
-        print content_size_in_rx_buffer
-        print '------------------------'
-
+        if verbose :
+            print content_size_in_rx_buffer
+            print '------------------------'
+            
             
         while content_size_in_rx_buffer:
             data_chunk = self.ser_conn.read(content_size_in_rx_buffer)
             content_size_in_rx_buffer -= len(data_chunk)
             self.receive_buffer.extend(data_chunk)
             
-
-
+            
+            
 
             ##### TRIM OFF ESCAPE CHARACTERS #######################
             #unescape all contents in the receive buffer. This essentially removes the '\' character before everything. The output will be a bytearray.
         self.receive_buffer_unescaped = self.Unescape(self.receive_buffer)
-
+        
             ####### BREAK APART THE DATA IN BUFFER TO CORRECT DATA FRAMES########################
             #split all contents in the receive buffer into seperate data frames delimited b 0x7E
         dataframes = self.receive_buffer_unescaped.split(bytes(b'\x7E'))
-            
-        print  len(dataframes) - 1 
-            #print type(dataframes) DEBUG ONLY 
         
+        if verbose :
+            print  len(dataframes) - 1 
+            #print type(dataframes) DEBUG ONLY 
+            
        #####VALIDATION####################
         for dataframe in dataframes[1:]: 
-                #validate all of the frames. 
+            #validate all of the frames. 
             valid = self.Validate_frame(dataframe)
-            print '----------------------'
-            # print self.format_to_string(msg)
-            # print 'Type:'
-            # print type(msg)
-
+            if verbose :
+                print '----------------------'
+                # print self.format_to_string(msg)
+                # print 'Type:'
+                # print type(msg)
+                
                 #For Debugging Only
-            print 'Validity'
-            print valid
-
+                print 'Validity'
+                print valid
+                
             
        #Extract the valid data frames 
 #        print 'Valid dataframes'
         for valid_dataframe  in self.ValidRxDataFrames :
- #           print '------------------------------------'
-        
-  #          print self.format_to_string(valid_dataframe)
+            #           print '------------------------------------'
+            
+            #          print self.format_to_string(valid_dataframe)
             self.ExtractMessage(valid_dataframe)
+            
 
-        # Print rxmessages <for debugging only>    
-   #     print 'Received Messages'
-    #    for rxmessage in self.rxmessages :
-     #       print' --------------------------'
-      #      print self.format_to_string(rxmessage)
-        
-                
+
+        if verbose:
+            # Print rxmessages <for debugging only>    
+            print 'Received Messages'
+            for rxmessage in self.rxmessages :
+                print' --------------------------'
+                print self.format_to_string(rxmessage)
+                    
+                    
         return self.rxmessages 
          
         
