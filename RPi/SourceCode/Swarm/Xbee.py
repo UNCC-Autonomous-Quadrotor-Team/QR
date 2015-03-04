@@ -21,7 +21,7 @@ class Xbee:
     def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
        
 
-        #Convert the raw_data_msg into a byte array
+        #CONVERT raw_data_msg INTO A BYTE ARRAY 
         if not raw_data_msg:
             return 0
         if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
@@ -32,7 +32,7 @@ class Xbee:
             data_msg = raw_data_msg
         
 
-        #Format the PACKET HEADER
+        #FORMAT PACKET HEADER
         
 #FORMAT: <start delimiter (7E)] <Length: MSB LSB> <API IDENTIFIER> <Frame Identifier> <Destination address High> <Destination Address Low> <Options>  <cmd_id>      <MSG>
 #SIZE:         <1 Byte>            < 2 bytes>     < 1 byte>              <1 byte>              <1 byte>             <1 byte>         <1 byte>           <up to 100 bytes>
