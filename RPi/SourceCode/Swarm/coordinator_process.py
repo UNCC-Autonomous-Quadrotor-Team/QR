@@ -17,7 +17,7 @@ coord_descision = swarm_alg.coord_descision()
 # 01 - Position Data Request
 # 02 - Collision detection alert
 # 03 - Command Issue. 
-# 04 - Movement Error/Reception Error 
+# 04 - Report Data
 #msg = 'Request Acknowledgement'
 options = 0x00
 verbose = 1 
@@ -28,10 +28,14 @@ xbee_obj.SendTransmitRequest(0,0xFFFF,1,options,verbose)
 
 #Listen on the channel for responses from the Nodes within the cluster.
 
-#for i  in range(0,2) : 
- #   recieved_messages = []
-  #  recieved_messages =  xbee_obj.receive_packet()
-   # xbee_obj.receive_packet()
+t.sleep(2) 
+received_messages = []
+received_messages =  xbee_obj.receive_packet(verbose)
+
+
+# print type(nodeids)
+#  print type(nodeids(0))
+
     #print all contents in recieved_messages buffer. 
    # for recieved_message in recieved_messages:
     #    print xbee_obj.format_to_string(recieved_message)

@@ -8,7 +8,7 @@ import time as t
 device_location = '/dev/ttyAMA0'
 baudrate = '9600'
 xbee_obj = Xbee.Xbee(device_location,baudrate)
-
+verbose = 1 
 
 #Parameters for packet transmission
 
@@ -24,9 +24,9 @@ while 1:
 #    received_dataframes = []
     t.sleep(1) 
     
-    recevied_dataframes =xbee_obj.receive_packet()
+    recevied_dataframes =xbee_obj.receive_packet(verbose)
    # xbee_obj.receive_packet()
     if len(recevied_dataframes) > 0 :
-        message = 'Acknowledgement Received'
+        message = 25
         xbee_obj.SendTransmitRequest(message,destination_address,cmd_id,options,1)
         
