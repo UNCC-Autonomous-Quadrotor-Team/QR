@@ -1,7 +1,0 @@
-class data_manipulation:
-    
-    def int_to_bytearray(self,integer_input):
-        most_significant_byte = (integer_input & 0xFF00) >> 8
-        least_significant_byte = (integer_input & 0x00FF)
-        
-        return bytearray.fromhex('{:02X}{:02X}'.format(most_significant_byte,least_significant_byte))
