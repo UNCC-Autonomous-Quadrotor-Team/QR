@@ -24,15 +24,20 @@ verbose = 1
 
 
 #Send Transmit Request for position data to immediate token ring.
-xbee_obj.SendTransmitRequest(0,0xFFFF,1,options,verbose)
+xbee_obj.SendTransmitRequest(25,0xFFFF,1,options,verbose)
 
 #Listen on the channel for responses from the Nodes within the cluster.
 
 t.sleep(2) 
 received_messages = []
-received_messages =  xbee_obj.receive_packet(verbose)
-
-
+received_messages =  xbee_obj.receive_packet(verbose) # List of Bytearrays
+print len(received_messages)
+if len(received_messages) > 0 :
+    position_data = coord_descision.extract_data(received_messages,verbose)
+    for data in position_data :
+        
+        print data
+        print type(data)
 # print type(nodeids)
 #  print type(nodeids(0))
 

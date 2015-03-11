@@ -6,6 +6,7 @@
 import serial as ser
 import time as t
 import numpy as np
+from auxiliary_library import Data_manipulation
 class Xbee: 
     def __init__(self,serialport,baudrate):
         self.ser_conn = ser.Serial(
@@ -16,7 +17,9 @@ class Xbee:
             bytesize = 8,
             )
     
+        #Create an data_manipulation object so that the conversion methods can be used.
         
+        self.data_manip_library = Data_manipulation()
 
     def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
        
@@ -25,9 +28,10 @@ class Xbee:
         if  raw_data_msg < 0:
             return 0
         if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
-            first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
-            second_byte_msg = (raw_data_msg & 0x00FF)
-            data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
+           # first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
+           # second_byte_msg = (raw_data_msg & 0x00FF)
+           # data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
+           data_msg =  self.data_manip_library.int_to_bytearray(raw_data_msg)
         else:
             data_msg = raw_data_msg
         
@@ -102,18 +106,15 @@ class Xbee:
         while content_size_in_rx_buffer:
             data_chunk = self.ser_conn.read(content_size_in_rx_buffer)
             content_size_in_rx_buffer -= len(data_chunk)
-            self.receive_buffer.extend(data_chunk)
-            
-            
-            
-
-            ##### TRIM OFF ESCAPE CHARACTERS #######################
-            #unescape all contents in the receive buffer. This essentially removes the '\' character before everything. The output will be a bytearray.
-        self.receive_buffer_unescaped = self.Unescape(self.receive_buffer)
+            self.receive_buffer.extend(data_chunk)#string type
+       
+        # self.receive_buffer_unescaped = self.Unescape(self.receive_buffer)
         
             ####### BREAK APART THE DATA IN BUFFER TO CORRECT DATA FRAMES########################
             #split all contents in the receive buffer into seperate data frames delimited b 0x7E
-        dataframes = self.receive_buffer_unescaped.split(bytes(b'\x7E'))
+        
+        self.receive_buffer = bytearray(self.receive_buffer)    
+        dataframes = self.receive_buffer.split(bytes('\x7E'))
         
         if verbose :
             print  len(dataframes) - 1 
@@ -198,27 +199,28 @@ class Xbee:
         return True
    
       
-    def Unescape(self, dataframe):  # Remove all escape characters in buffer
-        output = bytearray()
+    #def Unescape(self, dataframe):  # Remove all escape characters in buffer
+     #   output = bytearray()
 
-        if(len(dataframe) == 0) :
+      #  if(len(dataframe) == 0) :
             # Last byte indicates an escape, can't unescape that
-            return output
+       #     return output
         
       
-        skip = False
-        for i in range(len(dataframe)):
-            if skip:
-                skip = False
-                continue
+        #skip = False
+        #for i in range(len(dataframe)):
+         #   if skip:
+          #      skip = False
+           #     continue
             
-            if dataframe[i] == 0x7D:
-                output.append(dataframe[i+1] ^ 0x20)
-                skip = True
-            else:
-                output.append(dataframe[i])
-                
-        return output 
+           # if dataframe[i] == 0x7D:
+            #    output.append(dataframe[i+1] ^ 0x20)
+             #   skip = True
+           # else:
+            #    output.append(dataframe[i])
+          
+        
+       # return output 
 
     def ExtractMessage(self,dataframe):
         #
