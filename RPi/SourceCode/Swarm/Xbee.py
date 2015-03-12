@@ -19,27 +19,42 @@ class Xbee:
     
         #Create an data_manipulation object so that the conversion methods can be used.
         
-        self.data_manip_library = Data_manipulation()
+        self.data_lib = Data_manipulation()
 
     def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
-       
+       #Check which type of message is going to be sent by looking at cmd_id
+        if cmd_id == 4: # The message that will be sent is a simple data report.
+ 
+            #raw_data_msg  is a list of integers. 
+            
+            #split the raw_data_msg into the corresponding distance and orientation data. 
+            position_data_msg = self.data_lib.int_to_bytearray(raw_data_msg[0])
+            orientation_data_msg =  self.data_lib.int_to_bytearray(raw_data_msg[1])
+            #concatentate position and orientation data into one data msg.
+            data_msg = position_data_msg + orientation_data_msg
+            
+            
 
+        else :
+            #raw_data_msg is just a single integer value or string. 
         #CONVERT raw_data_msg INTO A BYTE ARRAY 
-        if  raw_data_msg < 0:
-            return 0
-        if type(raw_data_msg) is int:  #Convert int into chr equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
-           # first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
-           # second_byte_msg = (raw_data_msg & 0x00FF)
-           # data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
-           data_msg =  self.data_manip_library.int_to_bytearray(raw_data_msg)
-        else:
-            data_msg = raw_data_msg
-        
+            if  raw_data_msg < 0:
+                return 0
+            if type(raw_data_msg) is int:  #Convert int into bytearray equivalent. Note Chr(1 byte) - Translates to 0x00 hex. 
+                # first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
+                # second_byte_msg = (raw_data_msg & 0x00FF)
+                # data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
+                data_msg =  self.data_lib.int_to_bytearray(raw_data_msg)
+            else:
+                data_msg = raw_data_msg
+            
 
         #FORMAT PACKET HEADER
         
 #FORMAT: <start delimiter (7E)] <Length: MSB LSB> <API IDENTIFIER> <Frame Identifier> <Destination address High> <Destination Address Low> <Options>  <cmd_id>      <MSG>
 #SIZE:         <1 Byte>            < 2 bytes>     < 1 byte>              <1 byte>              <1 byte>             <1 byte>         <1 byte>           <up to 100 bytes>
+
+    
         packet_header = '7E 00 {:02X} 01 00  {:02X} {:02X} {:02X} {:02X}'.format(
             len(data_msg) + 6,  # LSB LENGTH
             (destination_address & 0xFF00) >> 8 ,  # Destination MSB/High                   

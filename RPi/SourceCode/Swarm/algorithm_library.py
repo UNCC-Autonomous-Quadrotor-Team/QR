@@ -13,6 +13,10 @@ class coord_descision:
     
 
     def detect_potential_collisions(self,verbose):
+        self.nodeid = []
+        self.distance_data = []
+        self.orientation_data = []
+        
         if verbose:
             print " Detecting possible collisions..."
             
@@ -22,10 +26,12 @@ class coord_descision:
         if verbose:
             print "Parsing position data.."
             
-        nodeid = [] 
-        position_data = []
         for rxmessage in rxmessages:
+            if rxmessage[2] == 4:
+                distance_data.append(self.data_lib.bytearray_to_int(rxmessage[3:7]))
+                orientation_data.append(self.data_lib.bytearray_to_int(rxmessage[7:]))
+                
             nodeid.append(self.data_lib.bytearray_to_int(rxmessage[0:2]))
-            position_data.append(self.data_lib.bytearray_to_int(rxmessage[3:]))
+            
 
-        return nodeid
+        return orientation_data

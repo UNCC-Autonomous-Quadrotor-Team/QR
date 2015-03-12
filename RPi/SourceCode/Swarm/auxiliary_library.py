@@ -9,7 +9,7 @@ class Data_manipulation:
         
         #ATTENTION, PYTHON BY DEFAULT USES 32 BIT INTEGERS.NOT 16 BIT INTEGERS.        #HOWEVER NOTE THAT ZIGBEE USES 16 BIT ADDRESSING, SO THIS CANNOT BE USED.
 
-        return struct.pack('>i',input_int)
+        return bytearray(struct.pack('>i',input_int))
       
 
     def bytearray_to_int(self,input_bytearray):

@@ -14,7 +14,7 @@ verbose = 1
 
 destination_address = 0x0000 #coordinator destination <16 bit address>
 options = 0x00 #no options specified
-cmd_id = 2
+cmd_id = 4
 
 
 #listen on the Wireless channel for any transmissions. 
@@ -27,6 +27,6 @@ while 1:
     recevied_dataframes =xbee_obj.receive_packet(verbose)
    # xbee_obj.receive_packet()
     if len(recevied_dataframes) > 0 :
-        message = 25
+        message = [25,30]
         xbee_obj.SendTransmitRequest(message,destination_address,cmd_id,options,1)
         

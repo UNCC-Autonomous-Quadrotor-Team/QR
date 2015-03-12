@@ -21,10 +21,12 @@ coord_descision = swarm_alg.coord_descision()
 #msg = 'Request Acknowledgement'
 options = 0x00
 verbose = 1 
-
-
+distance_data = 5
+orientation_data = 5 
+destination_address = 0xFFFF
+cmd_id = 4
 #Send Transmit Request for position data to immediate token ring.
-xbee_obj.SendTransmitRequest(25,0xFFFF,1,options,verbose)
+xbee_obj.SendTransmitRequest([distance_data,orientation_data],destination_address,cmd_id,options,verbose)
 
 #Listen on the channel for responses from the Nodes within the cluster.
 
