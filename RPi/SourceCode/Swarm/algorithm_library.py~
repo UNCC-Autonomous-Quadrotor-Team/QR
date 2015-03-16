@@ -1,9 +1,0 @@
-class coord_descision:
-
-    def __init__(self):
-#        print "object created."
-
-    def CRC(self):
-        print "Container for decision process"
-        return 0
-
