@@ -22,7 +22,7 @@ cmd_id = 4
 
 while 1: 
 #    received_dataframes = []
-    t.sleep(1) 
+    t.sleep(0.5) 
     
     recevied_dataframes =xbee_obj.receive_packet(verbose)
    # xbee_obj.receive_packet()

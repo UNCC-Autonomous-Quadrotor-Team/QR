@@ -47,7 +47,7 @@ class Xbee:
                 data_msg =  self.data_lib.int_to_bytearray(raw_data_msg)
             else:
                 data_msg = raw_data_msg
-            
+                
 
         #FORMAT PACKET HEADER
         
