@@ -36,12 +36,12 @@ class coordinator_descision:
         msg = 0
         received_messages =[]
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
-        t.sleep(0.7)
+        t.sleep(1.15)
         received_messages = self.xbee_obj.receive_packet(verbose)
         return received_messages
 
 
-    def detect_potential_collisions(self,rxmessages,verbose):
+    def (self,rxmessages,verbose):
         self.nodeid = []
         self.distance_data = []
         self.orientation_data = []
@@ -58,10 +58,7 @@ class coordinator_descision:
             print " Detecting possible collisions..."
             
         self.extract_data(rxmessages,verbose)
-        if verbose: # Debug only 
-
-            print self.distance_data[0]
-            print self.orientation_data[0]
+        if verbose:
 
         #Determine Possible collisions. 
         
@@ -79,3 +76,22 @@ class coordinator_descision:
             
 
         
+
+
+class node_status:
+    
+    def __init__(self): 
+        
+        self.distance = 0
+        self.height = 0 
+        self.perpendicularity = 0 
+    
+    def Update_Location(self,height,distance,perpendicularity):
+
+        self.perpendicularity = perpendicularity
+        self.height = height
+        self.distance = distance 
+        
+        self.coordinate_representation
+        
+    
