@@ -2,7 +2,7 @@ from auxiliary_library import Data_manipulation
 import struct
 import Xbee
 import time as t
-
+import math
 
 
 class coordinator_descision:
@@ -58,8 +58,7 @@ class coordinator_descision:
             print " Detecting possible collisions..."
             
         self.extract_data(rxmessages,verbose)
-        if verbose:
-
+        
         #Determine Possible collisions. 
         
 
@@ -85,13 +84,17 @@ class node_status:
         self.distance = 0
         self.height = 0 
         self.perpendicularity = 0 
+        self.yaw = 0
     
-    def Update_Location(self,height,distance,perpendicularity):
+    def Update_Location(self,height,distance,perpendicularity,yaw):
 
         self.perpendicularity = perpendicularity
         self.height = height
         self.distance = distance 
         
-        self.coordinate_representation
+        
+        self.coordinate_representation = [(self.distance * math.cos(perpendicularity),(self.distance * math.sin(perpendicularity)];
+
         
     
+        
