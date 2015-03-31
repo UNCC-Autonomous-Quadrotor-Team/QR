@@ -27,11 +27,12 @@ class Xbee:
  
             #raw_data_msg  is a list of integers. 
             
-            #split the raw_data_msg into the corresponding distance and orientation data. 
-            position_data_msg = self.data_lib.int_to_bytearray(raw_data_msg[0])
-            orientation_data_msg =  self.data_lib.int_to_bytearray(raw_data_msg[1])
+            #split the raw_data_msg into the corresponding distance,height,and perpendicularity data. 
+            height_data = self.data_lib.int_to_bytearray(raw_data_msg[0])
+            perpendicularity_data  =  self.data_lib.int_to_bytearray(raw_data_msg[1])
+            distance_data = self.data_lib.int_to_bytearray(raw_data_msg[1])
             #concatentate position and orientation data into one data msg.
-            data_msg = position_data_msg + orientation_data_msg
+            data_msg = height_data  + perpendicularity_data + distance_data
             
             
 

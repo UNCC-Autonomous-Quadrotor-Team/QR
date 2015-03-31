@@ -119,9 +119,9 @@ class coordinator_descision:
                 
             for rxmessage in rxmessages:
                 if rxmessage[2] == 4:
-                    self.distance_data.append(self.data_lib.bytearray_to_int(rxmessage[13:]))
-                    self.perpendicularity_data.append(self.data_lib.bytearray_to_int(rxmessage[8:12]))
-                    self.height_data.append(self.data_lib.bytearray_to_int(rxmessage[3:7]))
+                    self.distance_data.append(self.data_lib.bytearray_to_int(rxmessage[8:]))
+                    self.perpendicularity_data.append(self.data_lib.bytearray_to_int(rxmessage[5:8]))
+                    self.height_data.append(self.data_lib.bytearray_to_int(rxmessage[2:5]))
                     self.nodeid.append(self.data_lib.bytearray_to_int(rxmessage[0:2]))
     
          elif extraction_type == "nodeid_only":

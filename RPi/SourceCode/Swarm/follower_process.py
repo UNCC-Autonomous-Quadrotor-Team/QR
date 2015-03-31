@@ -29,6 +29,7 @@ while 1:
     recevied_dataframes =xbee_obj.receive_packet(verbose)
    # xbee_obj.receive_packet()
     if len(recevied_dataframes) > 0 :
-        message = [25,30]
+        # message : [height,perpendicularity,distance]
+        message = [25,30,35]
         xbee_obj.SendTransmitRequest(message,destination_address,cmd_id,options,1)
         

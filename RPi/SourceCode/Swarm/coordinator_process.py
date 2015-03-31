@@ -7,6 +7,10 @@ verbose = 1
 coord_descision_library = swarm_alg.coordinator_descision(verbose)
 
 
-#Start the process to move the swarm. 
+#Initialize the cluster.
+coord_descision_library.initialize_swarm()
+
+#proceed to move the cluster.
 
 coord_descision_library.move_swarm(verbose)
+#coord_descision_library.move_swarm(verbose)
