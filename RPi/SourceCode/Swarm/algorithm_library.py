@@ -97,9 +97,14 @@ class coordinator_descision:
            if cluster_node != 0: 
                print "Cluster Node " + str(cluster_node.nodeid) + " Information"
                print "----------------------------------------------------------"
-               print " Distance:" + str(cluster_node.distance)
-               print " Height:" + str(cluster_node.height)
-               print " Perpendicularity:" + str(cluster_node.perpendicularity)
+               print " Distance:"  + str(cluster_node.distance) 
+           
+               print " Height:"  + str(cluster_node.height)
+              
+               print " Perpendicularity:"  + str(cluster_node.perpendicularity)
+               print " "
+
+              
            
            elif cluster_node == 0:
                print "Cluster Node is empty"
@@ -136,9 +141,9 @@ class coordinator_descision:
              for rxmessage in rxmessages:
                  if rxmessage[2] == 4:
                      nodeid = self.data_lib.bytearray_to_int(rxmessage[0:2])
-                     height = self.data_lib.bytearray_to_int(rxmessage[2:5])
-                     perpendicularity = self.data_lib.bytearray_to_int(rxmessage[5:8])
-                     distance = self.data_lib.bytearray_to_int(rxmessage[8:])
+                     height = self.data_lib.bytearray_to_int(rxmessage[3:7])
+                     perpendicularity = self.data_lib.bytearray_to_int(rxmessage[7:11])
+                     distance = self.data_lib.bytearray_to_int(rxmessage[11:])
                     
                      
 
@@ -161,10 +166,9 @@ class node_status:
         
         self.nodeid = nodeid
         self.distance = 0
-        self.height = 0 
+        self.height = 0
         self.perpendicularity = 0 
-        self.yaw = 0
-    
+        self.yaw = 0  
     def Update_Location(self,height,distance,perpendicularity):
 
         self.perpendicularity = perpendicularity

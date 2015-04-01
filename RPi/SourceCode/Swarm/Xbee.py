@@ -30,7 +30,7 @@ class Xbee:
             #split the raw_data_msg into the corresponding distance,height,and perpendicularity data. 
             height_data = self.data_lib.int_to_bytearray(raw_data_msg[0])
             perpendicularity_data  =  self.data_lib.int_to_bytearray(raw_data_msg[1])
-            distance_data = self.data_lib.int_to_bytearray(raw_data_msg[1])
+            distance_data = self.data_lib.int_to_bytearray(raw_data_msg[2])
             #concatentate position and orientation data into one data msg.
             data_msg = height_data  + perpendicularity_data + distance_data
             
@@ -79,8 +79,8 @@ class Xbee:
         #Print the packet if verbose is set. 
         
         if(verbose == 1):
-            print "TX Packet:" + self.format_to_string(data_frame)
-        
+            print "TX Packet:" + self.data_lib.bytearray_to_string(data_frame)
+            
 
     
         #Send the packet to the xbee for transmission. 
@@ -89,9 +89,7 @@ class Xbee:
 
 
     
-    def format_to_string(self,data_frame):
-        #convert the hexadecimals to a string format.
-        return " ".join("{:02x}".format(i) for i in data_frame)
+    
 
 
     def receive_packet(self,verbose):
@@ -142,7 +140,7 @@ class Xbee:
             valid = self.Validate_frame(dataframe)
             if verbose :
                 print '----------------------'
-                # print self.format_to_string(msg)
+                # print self.data_lib.bytearray_to_string(msg)
                 # print 'Type:'
                 # print type(msg)
                 
@@ -156,7 +154,7 @@ class Xbee:
         for valid_dataframe  in self.ValidRxDataFrames :
             #           print '------------------------------------'
             
-            #          print self.format_to_string(valid_dataframe)
+            #          print self.data_lib.bytearray_to_string(valid_dataframe)
             self.ExtractMessage(valid_dataframe)
             
 
@@ -166,7 +164,7 @@ class Xbee:
             print 'Received Messages'
             for rxmessage in self.rxmessages :
                 print' --------------------------'
-                print self.format_to_string(rxmessage)
+                print self.data_lib.bytearray_to_string(rxmessage)
                     
                     
         return self.rxmessages 

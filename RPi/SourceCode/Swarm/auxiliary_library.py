@@ -43,3 +43,5 @@ class Data_manipulation:
 
 
 
+    def bytearray_to_string(self,byte_msg):
+        return " ".join("{:02X}".format(i) for i in byte_msg)
