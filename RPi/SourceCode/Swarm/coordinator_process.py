@@ -4,7 +4,10 @@ import algorithm_library as swarm_alg
 
 #Create a object from the coordination_decision class from the swarm algorithm library so that its functions can be used 
 verbose = 1
-coord_descision_library = swarm_alg.coordinator_descision(verbose)
+device_location = '/dev/ttyUSB0'
+baudrate = '9600'
+
+coord_descision_library = swarm_alg.coordinator_descision(device_location,baudrate,verbose)
 
 
 #Initialize the cluster.

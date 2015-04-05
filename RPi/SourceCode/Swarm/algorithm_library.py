@@ -7,7 +7,7 @@ import math
 
 class coordinator_descision:
     
-    def __init__(self,verbose):
+    def __init__(self,device_location,baudrate,verbose):
         
         #create a library object for data manipulation. This is needed to convert from int to bytearray, bytearray to int, etc. 
         self.data_lib = Data_manipulation()
@@ -28,8 +28,6 @@ class coordinator_descision:
         else:
             print 'No quadrotors responded.. Re attempting broadcast..'
             received_messages = self.movement_data_request()
-
-    
 
     def initialize_swarm(self):
         #initate a movmenet data request to get the nodeids and intital positions
@@ -104,7 +102,7 @@ class coordinator_descision:
                print " Perpendicularity:"  + str(cluster_node.perpendicularity)
                print " "
 
-              
+               print " Coordinate Representation " + str(cluster_node.coordinate_representation)
            
            elif cluster_node == 0:
                print "Cluster Node is empty"
@@ -137,7 +135,7 @@ class coordinator_descision:
                      self.nodeid.append(self.data_lib.bytearray_to_int(rxmessage[0:2]))
 
          elif extraction_type == "to_cluster_obj":
-             
+            
              for rxmessage in rxmessages:
                  if rxmessage[2] == 4:
                      nodeid = self.data_lib.bytearray_to_int(rxmessage[0:2])
@@ -157,8 +155,19 @@ class coordinator_descision:
                      
                      
              
-    
+class follower_decision:
 
+    def __init__(self,device_location,baudrate,verbose):
+    
+        #create an object for the auxiliary library for data manipulation of packets.
+        
+        self.data_lib = Data_manipulation()
+        
+        #Create an Xbee Object. 
+    
+        self.xbee_obj = Xbee.Xbee(device_location,baudrate);
+        if verbose:
+            print self.xbee_obj
 
 class node_status:
     
@@ -169,6 +178,8 @@ class node_status:
         self.height = 0
         self.perpendicularity = 0 
         self.yaw = 0  
+        self.coordinate_representation = [0,0]
+
     def Update_Location(self,height,distance,perpendicularity):
 
         self.perpendicularity = perpendicularity
