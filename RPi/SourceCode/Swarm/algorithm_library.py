@@ -20,18 +20,18 @@ class coordinator_descision:
 
     def move_swarm(self,verbose): 
     #ONLY CALL THIS FUNCTION WHEN THE SWARM IS INITIALIZED 
-        received_messages = self.movement_data_request()
+        received_messages = self.movement_data_request(verbose)
         
         if len(received_messages) > 0 : 
             self.detect_potential_collisions(received_messages,verbose)
             
         else:
             print 'No quadrotors responded.. Re attempting broadcast..'
-            received_messages = self.movement_data_request()
+            received_messages = self.movement_data_request(verbose)
 
     def initialize_swarm(self):
         #initate a movmenet data request to get the nodeids and intital positions
-        received_messages = self.movement_data_request() # this will return all messages received from the local cluster after page.
+        received_messages = self.movement_data_request(0) # this will return all messages received from the local cluster after page.
         self.extract_data(received_messages,1,"nodeid_only")
         
         try:
@@ -47,21 +47,20 @@ class coordinator_descision:
                 self.cluster_nodes[node] = (node_status(node))
                 
             print "Swarm Cluster Initalized."
-            print "Cluster Size: " + (str(len(self.cluster_nodes)))
+            print "Cluster Size: " + (str(len(self.nodeid)+ 1 )) # added 1 to account for the coordinator. 
 
 
         except : 
             print self.nodeid
             print "No quadrotors are detected within the vicinity. Re Run initialization sequence."
     
-    def movement_data_request(self):
+    def movement_data_request(self,verbose):
         #COMMAND IDENTIFIER TYPE:
         #01 - Movement Data Request
         #02 - Obstacle Detection Alert
         #03 - Report to Base Station
         #04 - Report Data
         options = 0x00
-        verbose = 1
         cmd_id = 1
         destination_address = 0xFFFF
         msg = 0
@@ -187,9 +186,9 @@ class follower_decision:
         
         #when packet(s) has arrived, determine if the packet is meant for this node. 
         
-        for received_dataframe in received_dataframes:
+        
             
-            if received_dataframe
+            
             
 class node_status:
     
@@ -201,16 +200,18 @@ class node_status:
         self.perpendicularity = 0 
         self.yaw = 0  
         self.coordinate_representation = [0,0]
-
+        
     def Update_Location(self,height,distance,perpendicularity):
-
+        
         self.perpendicularity = perpendicularity
         self.height = height
         self.distance = distance 
-        
-        
-        self.coordinate_representation = [(self.distance * math.cos(perpendicularity),(self.distance * math.sin(perpendicularity)))];
+        self.angle  = math.atan2(self.perpendicularity,self.distance)
+        hypoten_distance = math.hypot(self.distance,self.perpendicularity)
+        self.coordinate_representation = [self.distance,self.perpendicularity]
+       # self.coordinate_representation = [(hypoten_distance * math.cos(self.angle),(hypoten_distance * math.sin(self.angle)))];
 
         
     
         
+

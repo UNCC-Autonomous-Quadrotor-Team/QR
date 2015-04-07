@@ -15,9 +15,8 @@ class Data_manipulation:
     def bytearray_to_int(self,input_bytearray):
 
         #**************************************************************************************************************************************************
-        # DESCRIPTION: This function only handles 16 bit integers or 32 bit integers. Therefore the input must be a bytearray with 2 bytes or 4 bytes.
-        #**************************************************************************************************************************************************
-        
+       
+              
 
 
         
