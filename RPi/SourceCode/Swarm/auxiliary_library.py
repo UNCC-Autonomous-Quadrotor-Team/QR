@@ -22,9 +22,9 @@ class Data_manipulation:
 
         
        #NOTES:        
-       #IT IS ASSUMED THAT BYTEARRAYS ARE ORDERED WITH MOST SIGNIFICANT BIT FI       RST (READING LEFT TO RIGHT)
+       #IT IS ASSUMED THAT BYTEARRAYS ARE ORDERED WITH MOST SIGNIFICANT BIT FIRST (READING LEFT TO RIGHT)
 
-       #TODO: Create a for loop to convert a variable length byte array to integer. 
+        
 
         offset = len(input_bytearray) * 8 
         output_integer = 0 
@@ -45,3 +45,11 @@ class Data_manipulation:
 
     def bytearray_to_string(self,byte_msg):
         return " ".join("{:02X}".format(i) for i in byte_msg)
+
+
+
+class Visison_System:
+
+    def __init__(self):
+
+        print "Container for Vision System."

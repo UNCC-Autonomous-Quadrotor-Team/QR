@@ -21,6 +21,74 @@ class Xbee:
         
         self.data_lib = Data_manipulation()
 
+    def obtain_xbee_nodeid(self,verbose):
+        
+        #Enter command mode. 
+        self.ser_conn.write('+++')
+        buffer_size = 0
+        received_data = ''
+        nodeid = -1
+        panid = -1 
+        
+        
+        while self.ser_conn.inWaiting() == 0:
+            #wait until something is received. 
+            t.sleep(0.1)
+            buffer_size = self.ser_conn.inWaiting()
+
+
+        while buffer_size > 0:
+            
+            data_chunk = self.ser_conn.read()
+            buffer_size = buffer_size - len(data_chunk)
+            if data_chunk != '\r':#Delete the return character. It is not needed. 
+                received_data = received_data + data_chunk 
+            
+        if verbose: 
+            print " AT command Status: "  +  received_data 
+        
+        
+        if received_data == 'OK':
+            #QUERY FOR NODE ID
+            buffer_size = 0
+            received_data = ''
+            # Get the Node ID. 
+            self.ser_conn.write('ATMY\r')
+            while self.ser_conn.inWaiting() == 0:
+                t.sleep(0.1)
+                buffer_size = self.ser_conn.inWaiting()
+            while buffer_size > 0: 
+                data_chunk = self.ser_conn.read()
+                buffer_size = buffer_size - len(data_chunk)
+                if data_chunk != '\r':#Delete the return character. It is not needed. 
+                    received_data = received_data + data_chunk
+            nodeid = int(received_data)
+            print "Node ID: " + nodeid
+            
+            return nodeid
+            
+            
+            #QUERY FOR PANID.  TODO 
+            #self.ser_conn.write('ATOP/r')
+
+            #buffer_size = 0
+            #received_data = ''
+            
+           # while self.ser_conn.inWaiting() == 0:
+            #    t.sleep(0.1)
+             #   buffer_size = self.ser_conn.inWaiting()
+                
+           # while buffer_size > 0:
+            #    data_chunk = self.ser_conn.read()
+             #   buffer_size = buffer_size - len(data_chunk)
+              #  if data_chunk != '\r':
+               #     received_data = received_data + data_chunk
+           # panid = int(received_data)
+            #if verbose:
+            #    print "Pan ID: " + panid 
+           # message_to_return.append(panid)
+            return message_to_return
+        
     def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
        #Check which type of message is going to be sent by looking at cmd_id
         if cmd_id == 4: # The message that will be sent is a simple data report.

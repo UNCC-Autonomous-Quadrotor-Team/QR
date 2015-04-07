@@ -169,6 +169,28 @@ class follower_decision:
         if verbose:
             print self.xbee_obj
 
+        self.nodeid = self.xbee_obj.obtain_xbee_status(verbose) 
+
+    def listen_to_channel(self):
+        
+        received_dataframes = []
+        while len(received_dataframes) == 0: 
+        #listen to the channel until a packet arrives. 
+        #Each dataframe will contain the following information. 
+
+        # NODEID   COMMANDID   DATA 
+        #<2 Bytes> <1 Byte>    <Variable> 
+
+            received_dataframes = self.xbee_obj.receive_packet(verbose)
+            
+        
+        
+        #when packet(s) has arrived, determine if the packet is meant for this node. 
+        
+        for received_dataframe in received_dataframes:
+            
+            if received_dataframe
+            
 class node_status:
     
     def __init__(self,nodeid): 
