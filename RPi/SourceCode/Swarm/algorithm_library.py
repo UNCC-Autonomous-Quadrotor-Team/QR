@@ -20,7 +20,7 @@ class coordinator_descision:
 
     def move_swarm(self,verbose): 
     #ONLY CALL THIS FUNCTION WHEN THE SWARM IS INITIALIZED 
-        received_messages = self.movement_data_request(verbose)
+        received_messages = self.position_data_request(verbose)
         
         if len(received_messages) > 0 : 
             self.detect_potential_collisions(received_messages,verbose)
@@ -54,7 +54,7 @@ class coordinator_descision:
             print self.nodeid
             print "No quadrotors are detected within the vicinity. Re Run initialization sequence."
     
-    def movement_data_request(self,verbose):
+    def position_data_request(self,verbose): # Request Position Data from followers
         #COMMAND IDENTIFIER TYPE:
         #01 - Movement Data Request
         #02 - Obstacle Detection Alert
@@ -66,7 +66,7 @@ class coordinator_descision:
         msg = 0
         received_messages =[]
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
-        t.sleep(1.15)
+        t.sleep(1.10)
         received_messages = self.xbee_obj.receive_packet(verbose)
         #self.detect_potential_collisions(received_messasges,verbose)
         return received_messages
@@ -78,7 +78,8 @@ class coordinator_descision:
         #01 - Movement Data Request
         #02 - Obstacale detection alert
         #03 - Report to base Station
-        #04 - Report Data 
+        #04 - Report Position  Data 
+        #05 - Movement Command 
         
         
         
@@ -136,7 +137,7 @@ class coordinator_descision:
          elif extraction_type == "to_cluster_obj":
             
              for rxmessage in rxmessages:
-                 if rxmessage[2] == 4:
+                 if rxmessage[2] == 4: # Determine if the received message is of type "Report Data"
                      nodeid = self.data_lib.bytearray_to_int(rxmessage[0:2])
                      height = self.data_lib.bytearray_to_int(rxmessage[3:7])
                      perpendicularity = self.data_lib.bytearray_to_int(rxmessage[7:11])
@@ -179,17 +180,35 @@ class follower_decision:
 
         # NODEID   COMMANDID   DATA 
         #<2 Bytes> <1 Byte>    <Variable> 
-
+            
             received_dataframes = self.xbee_obj.receive_packet(verbose)
             
+        #determine the type of message transmitted. Messages should only come from the Coordinator. A failsafe will be implemented just in case a non coordinator device transmitted to a follower. 
         
-        
-        #when packet(s) has arrived, determine if the packet is meant for this node. 
-        
-        
+    def extract_data(self,received_dataframes):
+       
+        data = []
+        #Parse the dataframe into the source node id, command id, and data.
+
+        #INPUT: list of bytearrays. 
+        #OUTPUT: list of data from the coordinator.
+        counter = 0 # counter for incrementing through the extracted data buffer. 
+        for received_dataframe in received_dataframes:
+            nodeid = -1 
+            nodeid = self.data_lib.bytearray_to_int(received_dataframe[0:1])
             
-            
-            
+            if nodeid == 0 : #See if the received dataframe was transmitted by the coordinator. 
+                if received_dataframe[2] == 1: # Determine if the received dataframe contains a message that is a transmit data request
+                    data[counter] = 0 # Send a "NULL" value to data. Since it is a data request. 
+                
+                elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
+                    data[counter] =[self.data_lib.bytearray_to_int(dataframe[3:7]),self.data_lib.bytearray_to_int(dataframe[8:12]),self.data_lib.bytearray_to_int(dataframe[13:])]  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+
+                   
+                else:
+                    data[counter] = -1
+        return data
+
 class node_status:
     
     def __init__(self,nodeid): 
@@ -208,7 +227,8 @@ class node_status:
         self.distance = distance 
         self.angle  = math.atan2(self.perpendicularity,self.distance)
         hypoten_distance = math.hypot(self.distance,self.perpendicularity)
-        self.coordinate_representation = [self.distance,self.perpendicularity]
+        self.coordinate_representation[0] += self.distance 
+        self.coordinate_representation[1] += self.perpendicularity
        # self.coordinate_representation = [(hypoten_distance * math.cos(self.angle),(hypoten_distance * math.sin(self.angle)))];
 
         
