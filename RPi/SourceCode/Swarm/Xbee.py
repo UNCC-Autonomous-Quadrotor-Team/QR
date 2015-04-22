@@ -29,15 +29,17 @@ class Xbee:
         received_data = ''
         nodeid = -1
         panid = -1 
-        
-        
-        while self.ser_conn.inWaiting() == 0:
+        t.sleep(1.2) #wait for the Xbee to return something.
+        buffer_size = self.ser_conn.inWaiting()
+        while buffer_size == 0: #If nothing was returned, re-attempt to ener AT-Command.
+            self.ser_conn.write('+++')
             #wait until something is received. 
-            t.sleep(0.1)
+            t.sleep(1.2)
             buffer_size = self.ser_conn.inWaiting()
 
-
-        while buffer_size > 0:
+            print buffer_size
+#        print self.ser_conn.read()
+        while buffer_size:
             
             data_chunk = self.ser_conn.read()
             buffer_size = buffer_size - len(data_chunk)
@@ -62,11 +64,13 @@ class Xbee:
                 buffer_size = buffer_size - len(data_chunk)
                 if data_chunk != '\r':#Delete the return character. It is not needed. 
                     received_data = received_data + data_chunk
-            nodeid = int(received_data)
-            print "Node ID: " + nodeid
-            
+           
+            nodeid = received_data
+            print "Node ID: " + str(nodeid)
+            #exit command mode in Xbee
+            self.ser_conn.write('ATCN\r')
             return nodeid
-            
+        
             
             #QUERY FOR PANID.  TODO 
             #self.ser_conn.write('ATOP/r')

@@ -27,11 +27,11 @@ class coordinator_descision:
             
         else:
             print 'No quadrotors responded.. Re attempting broadcast..'
-            received_messages = self.movement_data_request(verbose)
+            received_messages = self.position_data_request(verbose)
 
     def initialize_swarm(self):
         #initate a movmenet data request to get the nodeids and intital positions
-        received_messages = self.movement_data_request(0) # this will return all messages received from the local cluster after page.
+        received_messages = self.position_data_request(1) # this will return all messages received from the local cluster after page.
         self.extract_data(received_messages,1,"nodeid_only")
         
         try:
@@ -53,13 +53,15 @@ class coordinator_descision:
         except : 
             print self.nodeid
             print "No quadrotors are detected within the vicinity. Re Run initialization sequence."
+            self.initialize_swarm()
     
     def position_data_request(self,verbose): # Request Position Data from followers
         #COMMAND IDENTIFIER TYPE:
-        #01 - Movement Data Request
+        #01 - Position Data Request
         #02 - Obstacle Detection Alert
         #03 - Report to Base Station
         #04 - Report Data
+        #05 - Movement Command
         options = 0x00
         cmd_id = 1
         destination_address = 0xFFFF
@@ -94,7 +96,7 @@ class coordinator_descision:
         for cluster_node in self.cluster_nodes:
            if cluster_node != 0: 
                print "Cluster Node " + str(cluster_node.nodeid) + " Information"
-               print "----------------------------------------------------------"
+               print "---------------------------------------------------------"
                print " Distance:"  + str(cluster_node.distance) 
            
                print " Height:"  + str(cluster_node.height)
@@ -148,13 +150,14 @@ class coordinator_descision:
                      #update corresponding cluster node object with correct data
                      
                      self.cluster_nodes[nodeid].Update_Location(height,distance,perpendicularity)
+
          else:
              
              print "error occured."
                      
                      
-                     
-             
+    
+            
 class follower_decision:
 
     def __init__(self,device_location,baudrate,verbose):
@@ -165,13 +168,14 @@ class follower_decision:
         
         #Create an Xbee Object. 
     
-        self.xbee_obj = Xbee.Xbee(device_location,baudrate);
+        self.xbee_obj = Xbee.Xbee(device_location,baudrate)
         if verbose:
             print self.xbee_obj
 
-        self.nodeid = self.xbee_obj.obtain_xbee_status(verbose) 
+        t.sleep(0.5)
+        self.nodeid = self.xbee_obj.obtain_xbee_nodeid(verbose) 
 
-    def listen_to_channel(self):
+    def listen_to_channel(self,verbose):
         
         received_dataframes = []
         while len(received_dataframes) == 0: 
@@ -182,32 +186,69 @@ class follower_decision:
         #<2 Bytes> <1 Byte>    <Variable> 
             
             received_dataframes = self.xbee_obj.receive_packet(verbose)
-            
+            t.sleep(1)
         #determine the type of message transmitted. Messages should only come from the Coordinator. A failsafe will be implemented just in case a non coordinator device transmitted to a follower. 
         
-    def extract_data(self,received_dataframes):
+        received_messages = self.process_data(received_dataframes)
+
+        self.reply_to_message(received_messages,verbose) 
+            
+
+    def reply_to_message(self,messages,verbose):
+ 
+        for message in messages:
+            if message == None:
+                if verbose:
+                    print "Message Type: Position Data Request"
+                position = [25,30,45]
+                coordinator_address = 0x0000
+                cmd_id = 4
+                self.xbee_obj.SendTransmitRequest(position,coordinator_address,cmd_id,0x00,1)
+            
+            elif len(message) > 1 :
+                if verbose:
+                    print "Message Type: Movement Command."
+                cmd_id = 0
+                message = 'ACK'
+                coordinator_address = 0x0000
+                self.xbee_obj.SendTransmitRequest(message,coordinator_address,cmd_id,0x00,1)
+
+            else: 
+                if verbose:
+                    print "Message Type: Unrecognized message." 
+
+        
+
+    def process_data(self,received_dataframes):
        
         data = []
         #Parse the dataframe into the source node id, command id, and data.
 
         #INPUT: list of bytearrays. 
-        #OUTPUT: list of data from the coordinator.
-        counter = 0 # counter for incrementing through the extracted data buffer. 
+        #OUTPUT: list of integers from the coordinator.
+        #counter = 0 
         for received_dataframe in received_dataframes:
             nodeid = -1 
             nodeid = self.data_lib.bytearray_to_int(received_dataframe[0:1])
             
             if nodeid == 0 : #See if the received dataframe was transmitted by the coordinator. 
                 if received_dataframe[2] == 1: # Determine if the received dataframe contains a message that is a transmit data request
-                    data[counter] = 0 # Send a "NULL" value to data. Since it is a data request. 
-                
-                elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
-                    data[counter] =[self.data_lib.bytearray_to_int(dataframe[3:7]),self.data_lib.bytearray_to_int(dataframe[8:12]),self.data_lib.bytearray_to_int(dataframe[13:])]  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+                    data.append(None) # Send a "NULL" value to data. Since it is a data request. 
+                    
+                    
 
+                elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
+                    data[counter].append( [self.data_lib.bytearray_to_int(dataframe[3:7]),self.data_lib.bytearray_to_int(dataframe[8:12]),self.data_lib.bytearray_to_int(received_dataframe[13:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+                    #Follow Movement Command#
                    
+                    #Send Acknowledgement#
+                    
                 else:
-                    data[counter] = -1
+                    data[counter].append(-1)# The command ID was an error. 
+        #    counter = counter + 1
         return data
+
+
 
 class node_status:
     
