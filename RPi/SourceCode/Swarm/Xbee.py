@@ -95,7 +95,7 @@ class Xbee:
         
     def SendTransmitRequest(self,raw_data_msg,destination_address,cmd_id,options,verbose):
        #Check which type of message is going to be sent by looking at cmd_id
-        if cmd_id == 4: # The message that will be sent is a simple data report.
+        if cmd_id == 4 or  cmd_id ==5: # The message that will be sent is a simple data report.
  
             #raw_data_msg  is a list of integers. 
             
