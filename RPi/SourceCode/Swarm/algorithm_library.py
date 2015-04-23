@@ -123,8 +123,8 @@ class coordinator_descision:
                         rxmessages = self.xbee_obj.receive_packet(verbose)
                         ACK = None
                         ACK = self.extract_data(rxmessages,verbose,"LookForACK")
-                        print "ACK node:" + str(ACK)
-                        print "Cluster node ID:" + str(cluster_node.nodeid)
+                        
+                        
                         if ACK != cluster_node.nodeid: #Re transmit if ACK is not received. 
                             if verbose: 
                                 print "Acknowledgement not received from node " +  str(cluster_node.nodeid) + " Re Transmitting Movement Command.."
@@ -140,10 +140,16 @@ class coordinator_descision:
                                 t.sleep(0.3)
                                 rxmessages = self.xbee_obj.receive_packet(verbose)
                                 ACK = self.extract_data(rxmessages,verbose,"LookForACK")
+
                                 if ACK != cluster_node.nodeid: # Still no acknowledgement received. The link is considered broken.
                                     print "Unsuccessful in completing handshake with node " + str(cluster_node.nodeid)
-                            
-                                    
+                                else: 
+                                    print "ACK received for Node : " + str(cluster_node.nodeid)
+                            else:
+                                print "ACK received for Node : " + str(cluster_node.nodeid)
+                    
+                        else:
+                            print "ACK received from Node " + str(cluster_node.nodeid)
                         
 
     def send_movement_command(self,nodeid,message,verbose):
