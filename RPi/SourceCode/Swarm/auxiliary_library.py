@@ -8,9 +8,11 @@ class Data_manipulation:
         #return bytearray().fromhex('{:02X}{:02X}'.format(most_significant_byte,least_significant_byte))
         
         #ATTENTION, PYTHON BY DEFAULT USES 32 BIT INTEGERS.NOT 16 BIT INTEGERS.        #HOWEVER NOTE THAT ZIGBEE USES 16 BIT ADDRESSING, SO THIS CANNOT BE USED.
-
+        
+             
+            
         return bytearray(struct.pack('>i',input_int))
-      
+    
 
     def bytearray_to_int(self,input_bytearray):
 
@@ -23,8 +25,8 @@ class Data_manipulation:
        #NOTES:        
        #IT IS ASSUMED THAT BYTEARRAYS ARE ORDERED WITH MOST SIGNIFICANT BIT FIRST (READING LEFT TO RIGHT)
 
-        
 
+        
         offset = len(input_bytearray) * 8 
         output_integer = 0 
         for i in range(0,len(input_bytearray)):
