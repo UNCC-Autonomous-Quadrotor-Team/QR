@@ -19,7 +19,10 @@ class coordinator_descision:
             print self.xbee_obj
 
     def move_swarm(self,verbose): 
+
     #ONLY CALL THIS FUNCTION WHEN THE SWARM IS INITIALIZED 
+
+        print "Getting position of all followers in cluster..."
         received_messages = self.position_data_request(verbose)
         
         if len(received_messages) > 0 : 
@@ -29,6 +32,21 @@ class coordinator_descision:
             print 'No quadrotors responded.. Re attempting broadcast..'
             self.move_swarm(verbose)
         
+        #BEGIN THE PROCESS FOR MOVING THE SWARM
+        
+        #get the position of the coordinator in relation to the object of interest. 
+        print "moving swarm..."
+        height = -10
+        distance = -10
+        perpendicularity = -10 
+        self.cluster_nodes[0].Update_Location(height,distance,perpendicularity)
+        #******************Obtain neccessary vector movements.***********#
+        #TODO
+        movement_vector  = [height,distance,perpendicularity]
+        self.send_movement_command(0xFFFF,movement_vector,verbose)
+        
+        
+
     def initialize_swarm(self):
         #initate a movmenet data request to get the nodeids and intital positions
         received_messages = self.position_data_request(1) # this will return all messages received from the local cluster after page.
@@ -118,6 +136,7 @@ class coordinator_descision:
                     if cluster_node.nodeid != 0: #make sure the node isn't the coordinator.      
                         message = [25,67,100]
                         self.send_movement_command(cluster_node.nodeid,message,verbose)
+                        print cluster_node
                         #listen for acknowledgements from the followers
                         t.sleep(0.3)
                         rxmessages = self.xbee_obj.receive_packet(verbose)
@@ -208,7 +227,7 @@ class coordinator_descision:
                  if rxmessage[2] == 6: 
                     # print "Acknowledgement Received for:" + self.data_lib.bytearray_to_string(rxmessage[0:2])
                      return self.data_lib.bytearray_to_int(rxmessage[0:2])
-
+            
          else:
              
              print "error occured."
@@ -249,7 +268,10 @@ class follower_decision:
         #determine the type of message transmitted. Messages should only come from the Coordinator. A failsafe will be implemented just in case a non coordinator device transmitted to a follower. 
         
         received_messages = self.process_data(received_dataframes)
-
+        
+        print "received message:" 
+        print type(received_messages)
+        print received_messages
         self.reply_to_message(received_messages,verbose) 
             
 
@@ -297,7 +319,7 @@ class follower_decision:
                     
 
                 elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
-                    data.append( [self.data_lib.bytearray_to_int(received_dataframe[3:7]),self.data_lib.bytearray_to_int(received_dataframe[8:12]),self.data_lib.bytearray_to_int(received_dataframe[13:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+                    data.append([self.data_lib.bytearray_to_int(received_dataframe[3:7]),self.data_lib.bytearray_to_int(received_dataframe[7:11]),self.data_lib.bytearray_to_int(received_dataframe[11:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
                     #Follow Movement Command#
                    
                     #Send Acknowledgement#
