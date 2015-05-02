@@ -36,9 +36,9 @@ class coordinator_descision:
         
         #get the position of the coordinator in relation to the object of interest. 
         print "moving swarm..."
-        height = 0
-        distance = 10
-        perpendicularity = -200 
+        height = -10
+        distance = -10
+        perpendicularity = -10 
         self.cluster_nodes[0].Update_Location(height,distance,perpendicularity)
         #******************Obtain neccessary vector movements.***********#
         #TODO
@@ -269,6 +269,8 @@ class follower_decision:
         
         received_messages = self.process_data(received_dataframes)
         
+        print "received message:" 
+        print type(received_messages)
         print received_messages
         self.reply_to_message(received_messages,verbose) 
             
@@ -317,7 +319,7 @@ class follower_decision:
                     
 
                 elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
-                    data.append( [self.data_lib.bytearray_to_int(received_dataframe[3:6]),self.data_lib.bytearray_to_int(received_dataframe[7:11]),self.data_lib.bytearray_to_int(received_dataframe[12:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+                    data.append([self.data_lib.bytearray_to_int(received_dataframe[3:7]),self.data_lib.bytearray_to_int(received_dataframe[7:11]),self.data_lib.bytearray_to_int(received_dataframe[11:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
                     #Follow Movement Command#
                    
                     #Send Acknowledgement#
