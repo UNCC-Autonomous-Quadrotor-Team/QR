@@ -16,10 +16,9 @@ import sys
 import numpy as np
 import pyqtgraph as pg
 import serial
+import time
 from PyQt4 import QtGui, QtCore
 from numpy import dtype, inf
-
-#app = QtGui.QApplication([])
 
 class Oneplot(QtGui.QWidget):
     def __init__(self):
@@ -67,6 +66,8 @@ class Oneplot(QtGui.QWidget):
         self.plot4 = pg.PlotWidget(title="<font color='blue'><b>Variance</b></font>")
         self.layout.addWidget(self.plot4,2,2,1,2)
         self.plot4.resize(320,240)
+        self.plot4.setLabel("bottom", "<font size='4'>Time (x)</font>")
+        self.plot4.setLabel("left", "<font size='4'>Error</font>")
         self.plot4_node1 = []
         self.plot4_node2 = []
         
@@ -109,6 +110,7 @@ class Oneplot(QtGui.QWidget):
         self.i=0
         self.buffer1=[1,3,5]
         self.count = 0
+        self.count2 = 0
         #self.status = "Status: Disconnected"
         #added for XBEE data parsing and storage
         self.receive_buffer = []
@@ -148,13 +150,14 @@ class Oneplot(QtGui.QWidget):
         self.Bstart.setDisabled(True)
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL('timeout()'), self.readData)
         self.timer.start(1000)
-        
+
     def Fstop(self):
         self.plotstatus.setText("<b>Plotting Status:</b> <font color='red'>Not Plotting</font>")
         self.Bstart.setDisabled(False)
         self.Bdisconnect.setDisabled(False)
         self.timer.stop()
-        
+
+    
     """****************************Read Data Frame(self)***********************************"""
     def readData(self):
         """Read Serial Data"""
@@ -177,19 +180,18 @@ class Oneplot(QtGui.QWidget):
         
         #####VALIDATION####################
         for dataframe in dataframes[1:]: 
-            print("validify")
             valid = self.Validate_frame(dataframe)
-            print ("Validity")
-            print (valid)
+            #print ("Validity")
+            #print (valid)
                 
-            
-        #Extract the valid data frames 
-        #print 'Valid dataframes'
+
         #for valid_dataframe  in self.ValidRxFrames :
         self.ExtractMessage(self.ValidRxFrames[len(self.ValidRxFrames) - 1])
             
         print("node 1")
         print (self.node1)
+        print("node 2")
+        print (self.node2)
         self.update()
         print("Plotted")
 
@@ -204,8 +206,8 @@ class Oneplot(QtGui.QWidget):
         if len(data_frame) < 9:
             return False
         
-        print("length")
-        print(len(data_frame))
+        #print("length")
+        #print(len(data_frame))
 
         LSB = data_frame[1]
 
@@ -223,8 +225,8 @@ class Oneplot(QtGui.QWidget):
 
     """**********************Extract Message(Called from readDate())******************************"""    
     def ExtractMessage(self, data_frame):
-        self.node1 = []                                 #reinitialize on every call to ExtractMessage()
-        self.node2 = []
+        #self.node1 = []                                 #reinitialize on every call to ExtractMessage()
+        #self.node2 = []
         #<MSB_length><LSB_length><API><MSB_addr><LSB_addr><RSSI><Options><Cmd_ID><DATA_height><DATA_per><DATA_dist><chcksum>
         #<0000000000><1111111111><222><33333333><44444444><5555><6666666><777777><8.9.10...11><12131415><161718.19><.....20>        
         
@@ -240,8 +242,12 @@ class Oneplot(QtGui.QWidget):
             self.node1+= [address] + [rssi] + [height] + [perpend] + [dist]
         elif len(self.node1) != 0:
             if address == self.node1[0]:
+                print("node 1 is here")
+                self.node1 = []
                 self.node1+= [address] + [rssi] + [height] + [perpend] + [dist]
             else:
+                self.node2 = []
+                print("node 2 is here")
                 self.node2+= [address] + [rssi] + [height] + [perpend] + [dist]
         
         
@@ -253,21 +259,21 @@ class Oneplot(QtGui.QWidget):
         for i in range(0,len(input_bytearray)):
             offset -= 8
             output_integer += input_bytearray[i] << offset   
-        return output_integer 
-
-    
+        return output_integer
+        """*******************************************************************************************"""
+    """*********************************Timer ISR*************************************************"""
     def update(self):
         #global curve, data
         print ("buffer", self.buffer)
         #Pens and brushes
         self.pen0 = pg.mkPen('w')
         self.pen_blue = pg.mkPen('b', width=3)
-        self.pen_blue_t = pg.mkPen('b', width=1)
+        self.pen_blue_t = pg.mkPen('b', width=2)
         self.pen_red = pg.mkPen('r', width=3)
         self.pen_green = pg.mkPen('g', width=3)
-        self.pen_green_t = pg.mkPen('g', width=1)
+        self.pen_green_t = pg.mkPen('g', width=2)
         self.pen_yellow = pg.mkPen('y', width=3)
-        
+        self.pen_o = pg.mkPen('g',width=0.3)
         self.brush1 = pg.mkBrush('y')
         
         
@@ -277,6 +283,7 @@ class Oneplot(QtGui.QWidget):
         #self.plot.addItem(self.plt_grid)
         
         
+		
         """Plot 1"""
         self.plot1.clear()
         self.plot1.addItem(self.plt_grid)
@@ -288,22 +295,22 @@ class Oneplot(QtGui.QWidget):
             plot1_node1_y = [0,self.node1[3]]
             plot1_node1_x = [0,self.node1[4]]
         if len(self.node2) >3:
-            plot1_node2_y = [0,self.node2[3]]
+            plot1_node2_y = [0,-self.node2[3]]
             plot1_node2_x = [0,-self.node2[4]]
         
         self.plot1.addLegend()
         
         if len(self.node1)>3:
             if self.node1[4] < 15:      #if quad is too close, plot in red.. WARNING!!
-                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_red, name = '......NODE1')
+                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_red,symbolSize=25,name = '......NODE1')
             else:
-                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_green, name = '......NODE1')
+                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_green,symbolSize=25,name = '......NODE1')
 
         if len(self.node2)>3:
             if self.node2[4] < 15:      #if quad is too close, plot in red.. WARNING!!
-                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_red, name = '......NODE2')
+                self.plot1.plotItem.plot(plot1_node2_x, plot1_node2_y, pen = None, symbol = 'x', symbolPen = self.pen_red,symbolSize=25,name = '......NODE2')
             else:
-                self.plot1.plotItem.plot(plot1_node1_x, plot1_node1_y, pen = None, symbol = 'x', symbolPen = self.pen_blue, name = '......NODE2')                
+                self.plot1.plotItem.plot(plot1_node2_x, plot1_node2_y, pen = None, symbol = 'x', symbolPen = self.pen_blue,symbolSize=25,name = '......NODE2')                
                 
         #self.plot.plotItem.plot(self.data1, pen= None, symbol = 'x', symbolPen = self.pen1, symbolSize = 30, name = '.......NODE2')
         
@@ -311,40 +318,41 @@ class Oneplot(QtGui.QWidget):
         self.plot2.addLegend()
         if len(self.node1)>3:
             self.plot2_node1.append(self.node1[1])
-            self.plot2.plotItem.plot(self.plot2_node1, pen = self.pen_green, symbol = 'o', name = '......NODE1')
+            self.plot2.plotItem.plot(self.plot2_node1,pen = self.pen_green_t, symbol = 'o',symbolSize=5,name = '......NODE1')
 
         if len(self.node2)>3:
             self.plot2_node2.append(self.node2[1])
-            self.plot2.plotItem.plot(self.plot2_node2, pen = self.pen_blue, symbol = 'o', name = '......NODE2')
+            self.plot2.plotItem.plot(self.plot2_node2, pen = self.pen_blue_t, symbol = 'o',symbolSize=5,name = '......NODE2')
             
         """Plot 3 - Height"""
         self.plot3.addLegend()
         if len(self.node1)>3:
             self.plot3_node1.append(self.node1[2])
-            self.plot3.plotItem.plot(self.plot3_node1, pen = self.pen_green, symbol = 'o', name = '......NODE1')
+            self.plot3.plotItem.plot(self.plot3_node1, pen = self.pen_green_t, symbol = 'o',symbolSize=5,name = '......NODE1')
 
         if len(self.node2)>3:
             self.plot3_node2.append(self.node2[2])
-            self.plot3.plotItem.plot(self.plot3_node2, pen = self.pen_blue, symbol = 'o', name = '......NODE2')    
+            self.plot3.plotItem.plot(self.plot3_node2, pen = self.pen_blue_t, symbol = 'o',symbolSize=5,name = '......NODE2')    
             
         
         """Plot 4 - Variance"""
         self.plot4.addLegend()
         self.plot4.addItem(self.plt_grid)
-        self.plot4.addLine(y=20, pen=0.5)
+        #lineplot = np.sqrt(100**2 + 20**2)
+        self.plot4.addLine(y=0, pen=0.5)
         self.count+=1
         if len(self.node1)>3:
-            val1 = np.sqrt(self.node1[3]**2 + self.node1[4]**2) 
+            val1 = np.sqrt((self.node1[2]-100)**2 + self.node1[3]**2 + (self.node1[4] - 20)**2) 
             self.plot4_node1.append(val1)
             #self.plot4_node1_y.append(self.node1[3] +1+20)
-            self.plot4.plotItem.plot(self.plot4_node1, pen = self.pen_green_t, symbol = 'o', name = '......NODE1')
+            self.plot4.plotItem.plot(self.plot4_node1, pen = self.pen_green_t, symbol = 'o',symbolSize=5,name = '......NODE1')
 
         if len(self.node2)>3:
             #val2 = self.node2[4] - 20 + self.count
-            val2 = np.sqrt(self.node2[3]**2 + self.node2[4]**2)
+            val2 = np.sqrt((self.node2[2]-100)**2 + self.node2[3]**2 + (self.node2[4] - 20)**2)
             self.plot4_node2.append(val2)
             #self.plot4_node2_y.append(self.node2[3] +1+20)
-            self.plot4.plotItem.plot(self.plot4_node2, pen = self.pen_blue_t, symbol = 'o', name = '......NODE2')
+            self.plot4.plotItem.plot(self.plot4_node2, pen = self.pen_blue_t, symbol = 'o',symbolSize=5,name='......NODE2')
         
 
 
