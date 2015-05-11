@@ -103,8 +103,10 @@ class Xbee:
             height_data = self.data_lib.int_to_bytearray(raw_data_msg[0])
             perpendicularity_data  =  self.data_lib.int_to_bytearray(raw_data_msg[1])
             distance_data = self.data_lib.int_to_bytearray(raw_data_msg[2])
-            #concatentate position and orientation data into one data msg.
-            data_msg = height_data  + perpendicularity_data + distance_data
+            angular_offset_data = self.data_lib.int_to_bytearray(raw_data_msg[3])
+            
+          #concatentate position and orientation data into one data msg.
+            data_msg = height_data  + perpendicularity_data + distance_data + angular_offset_data
             
             
 

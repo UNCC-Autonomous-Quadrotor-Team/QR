@@ -13,7 +13,7 @@ class coordinator_descision:
         self.data_lib = Data_manipulation()
         
         baudrate = '9600'
-        device_location = '/dev/ttyUSB0'
+#        device_location = '/dev/ttyUSB0'
         self.xbee_obj = Xbee.Xbee(device_location,baudrate)
         if verbose:
             print self.xbee_obj
@@ -36,18 +36,67 @@ class coordinator_descision:
         
         #get the position of the coordinator in relation to the object of interest. 
         print "moving swarm..."
-        height = -10
-        distance = -10
-        perpendicularity = -10 
-        self.cluster_nodes[0].Update_Location(height,distance,perpendicularity)
+        height = 10
+        distance = 10
+        perpendicularity = -10
+        angular_offset = -20
+        self.cluster_nodes[0].Update_Location(height,perpendicularity,distance,angular_offset)
         #******************Obtain neccessary vector movements.***********#
         #TODO
-        movement_vector  = [height,distance,perpendicularity]
+        movement_vector  = [height,perpendicularity,distance,angular_offset]
         self.send_movement_command(0xFFFF,movement_vector,verbose)
         
+        #Receive Acknowledgements from the followers.
+        t.sleep(0.3)
+        rxmessages = self.xbee_obj.receive_packet(verbose)
+        received_ack_frames = []
+        received_ack_frames = self.extract_data(rxmessages,verbose,"LookForACK")
+        if verbose: 
+            print "Acknowledged Nodes:" + str(received_ack_frames) 
         
+        if received_ack_frames  == []: # No nodes responded.
+            if verbose:
+                print "No nodes responded. Retransmitting movement vector."
+            self.send_movement_command(0xFFFF,movement_vector,verbose)
+            t.sleep(0.3)
+            rxmessages = self.xbee_obj.receive_packet(verbose)
+            received_ack_frames = self.extract_data(rxmessages,verbose,"LookForACK")
+            
+                
+        for cluster_node in self.cluster_nodes:
+            if cluster_node != None: # See if the  Cluster node exist.
+                if cluster_node.nodeid in received_ack_frames: # Acknowledge was received. 
+                    if verbose:
+                        print "Acknowledgement received for node " + str(cluster_node.nodeid)
+                    else:# Acknowledgement not received
+                        if verbose:
+                            print "Acknowledgement not recieved for node" + str(cluster_node.nodeid)
+                            print "Re Transmitting movement Vector"
+                            self.send_movement_command(cluster_node.nodeid,movement_vector,verbose)
+                            t.sleep(0.3)
+                            rxmessages = self.xbee_obj.receive_packet(verbose)
+                            if cluster_node.nodeid in self.extract_data(rxmessages,verbose,"LookForACK"):
+                                if verbose:
+                                    print "Acknowledgement received for node" + str(cluster_node.nodeid)
+                            else:
+                                if verbose: 
+                                    print "Acknowledgement still not received from node" + str(cluster_node.nodeid)
+                                    self.send_movement_command(cluster_node.nodeid,movement_vector,verbose)
+                                    t.sleep(0.3)
+                                    rxmessages = self.xbee_obj.receive_packet(verbose)
+                                    if cluster_node.nodeid in self.extract_data(rxmesssages,verbose,"LookForACK"):
+                                        if verbose:
+                                            print "Acknowledgment received for node" + str(cluster_node.nodeid)
+                                    else:
+                                        if verbose:
+                                            print "Failed to establish communication to node" + str(cluster_node.nodeid) + " The communication link may be destroyed."
 
+
+                            
     def initialize_swarm(self):
+        #INFO:
+        # cluster_nodes <= list of objects of type node_status. This contains the position and status of each node.
+        # nodeid <= list of nodeids of all participating quadcopters in the cluster.
         #initate a movmenet data request to get the nodeids and intital positions
         received_messages = self.position_data_request(1) # this will return all messages received from the local cluster after page.
         self.extract_data(received_messages,1,"nodeid_only")
@@ -55,7 +104,7 @@ class coordinator_descision:
         try:
             self.cluster_nodes = []
             for i in range(0,max(self.nodeid) + 1): #add one to compensate for coordinator offset. 
-                self. cluster_nodes.append(0)
+                self.cluster_nodes.append(None)
     
         
         #assign the data of the coordinator 
@@ -114,7 +163,7 @@ class coordinator_descision:
         #DEBUGGING
         if verbose:
             for cluster_node in self.cluster_nodes:
-                if cluster_node != 0: 
+                if cluster_node != None: # If the Cluster Node exists in the swarm 
                     print "Cluster Node " + str(cluster_node.nodeid) + " Information"
                     print "---------------------------------------------------------"
                     print " Distance:"  + str(cluster_node.distance) 
@@ -123,8 +172,11 @@ class coordinator_descision:
                     
                     print " Perpendicularity:"  + str(cluster_node.perpendicularity)
                     print " "
-                    
+                    print " Angular Displacement:" + str(cluster_node.angular_offset)
+                    print " "
                     print " Coordinate Representation " + str(cluster_node.coordinate_representation)
+                    
+                    
            
                 elif cluster_node == 0:
                     print "Cluster Node is empty"
@@ -132,35 +184,36 @@ class coordinator_descision:
 
             for cluster_node in self.cluster_nodes:
             # Detection algorithm
-                if cluster_node != 0: #make sure the cluster node object is available.  
+                if cluster_node != None: #make sure the cluster node object is available.  
                     if cluster_node.nodeid != 0: #make sure the node isn't the coordinator.      
-                        message = [25,67,100]
+                        message = [25,67,100,50]
+                        
                         self.send_movement_command(cluster_node.nodeid,message,verbose)
                         print cluster_node
                         #listen for acknowledgements from the followers
                         t.sleep(0.3)
                         rxmessages = self.xbee_obj.receive_packet(verbose)
+                        
+                        print len(rxmessages)
                         ACK = None
-                        ACK = self.extract_data(rxmessages,verbose,"LookForACK")
-                        
-                        
-                        if ACK != cluster_node.nodeid: #Re transmit if ACK is not received. 
+                        ACK = self.extract_data(rxmessages,verbose,"LookForACK") # returns a list of ACknowledged nodes.
+                                                                     
+                        if cluster_node.nodeid not in ACK: #Re transmit if ACK is not received. 
                             if verbose: 
                                 print "Acknowledgement not received from node " +  str(cluster_node.nodeid) + " Re Transmitting Movement Command.."
                             self.send_movement_command(cluster_node.nodeid,message,verbose)
                             t.sleep(0.3)
                             rxmessages = self.xbee_obj.receive_packet(verbose)
-                            ACK = self.extract_data(rxmessages,verbose,"LookForACK")
+                            ACK = self.extract_data(rxmessages,verbose,"LookForACK") #returns a list of acknowledged nodes
                             
-                            if ACK!= cluster_node.nodeid: # Re transmit for a second time.
+                            if cluster_node.nodeid not in ACK: # Re transmit for a second time.
                                 if verbose:
                                     print "Acknowledgment still not received from node " +  str(cluster_node.nodeid) + " Re Transmitting Movement Commmand.."
                                 self.send_movement_command(cluster_node.nodeid,message,verbose)
                                 t.sleep(0.3)
                                 rxmessages = self.xbee_obj.receive_packet(verbose)
                                 ACK = self.extract_data(rxmessages,verbose,"LookForACK")
-
-                                if ACK != cluster_node.nodeid: # Still no acknowledgement received. The link is considered broken.
+                                if cluster_node.nodeid not in ACK: # Still no acknowledgement received. The link is considered broken.
                                     print "Unsuccessful in completing handshake with node " + str(cluster_node.nodeid)
                                 else: 
                                     print "ACK received for Node : " + str(cluster_node.nodeid)
@@ -214,24 +267,58 @@ class coordinator_descision:
                      nodeid = self.data_lib.bytearray_to_int(rxmessage[0:2])
                      height = self.data_lib.bytearray_to_int(rxmessage[3:7])
                      perpendicularity = self.data_lib.bytearray_to_int(rxmessage[7:11])
-                     distance = self.data_lib.bytearray_to_int(rxmessage[11:])
-                    
+                     distance = self.data_lib.bytearray_to_int(rxmessage[12:15])
+                     angular_offset = self.data_lib.bytearray_to_int(rxmessage[16:])
+
                      
 
                      #update corresponding cluster node object with correct data
                      
-                     self.cluster_nodes[nodeid].Update_Location(height,distance,perpendicularity)
-
+                     self.cluster_nodes[nodeid].Update_Location(height,distance,perpendicularity,angular_offset)
+                     
          elif extraction_type == "LookForACK":
-             for rxmessage in rxmessages:
-                 if rxmessage[2] == 6: 
-                    # print "Acknowledgement Received for:" + self.data_lib.bytearray_to_string(rxmessage[0:2])
-                     return self.data_lib.bytearray_to_int(rxmessage[0:2])
-            
+           
+             #rxmessages should be a list of bytearrays or a bytearray.
+           
+             #OUTPUT: The format of the output follows the format of the input. EX. An input of a list of bytearrays will yeild a output of a list of integers(that represent the node id of the successful ACK transmission). An input of a single bytearray  will yeild a single integer representing the node id of the node that sent a succesful ACK.  
+
+             
+             if type(rxmessages) == list: 
+                 #note that this is not a two dimensional array. This is a list of bytearrays. The first argument below specifies the index of the list rxmessages. The second argument specifies the index within the bytearray that is stored in said list index.
+
+                  #FORMAT: rxmessages[list_index][index of bytearray]  ex. rxmessages = [bytearray1,bytearray2,bytearray3]
+                 # bytearray[1] = bytearray(b' x00/x02) . Therefore rxmessage[0][1]  == x02 
+                 
+
+                 ACKS = [] # list of integers
+                     
+                 for rxmessage in rxmessages:
+                     if rxmessage[2] == 6:
+                         ACKS.append(self.data_lib.bytearray_to_int(rxmessage[0:2]))
+                    
+                 return ACKS 
+                                         
+                                         
+             elif type(rxmessages) == bytearray:
+                 
+                 if(rxmessages[2] == 6):
+                     return self.data_lib.bytearray_to_int(rxmessages[0:2])
+                 
+                 else:
+                     return None 
+             
+             else:
+                 
+                 return None 
+             
+                     
+                     
+                     
+         
          else:
              
-             print "error occured."
-                     
+             print "Incorrect extraction Type Chosen"
+             return None
                      
     
             
@@ -281,7 +368,7 @@ class follower_decision:
             if message == None:
                 if verbose:
                     print "Message Type: Position Data Request"
-                position = [25,30,45]
+                position = [25,30,45,52]
                 coordinator_address = 0x0000
                 cmd_id = 4
                 self.xbee_obj.SendTransmitRequest(position,coordinator_address,cmd_id,0x00,1)
@@ -290,7 +377,7 @@ class follower_decision:
                 if verbose:
                     print "Message Type: Movement Command."
                 cmd_id = 6
-                message = 'ACK'
+                message = 's'
                 coordinator_address = 0x0000
                 self.xbee_obj.SendTransmitRequest(message,coordinator_address,cmd_id,0x00,1)
 
@@ -318,8 +405,13 @@ class follower_decision:
                     
                     
 
-                elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command. 
-                    data.append([self.data_lib.bytearray_to_int(received_dataframe[3:7]),self.data_lib.bytearray_to_int(received_dataframe[7:11]),self.data_lib.bytearray_to_int(received_dataframe[11:])])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
+                elif received_dataframe[2] == 5: # Determine if the received dataframe contains a message that is a movement command.
+                    height = self.data_lib.bytearray_to_int(received_dataframe[3:7])
+                    perpendicularity = self.data_lib.bytearray_to_int(received_dataframe[7:11])
+                    distance = self.data_lib.bytearray_to_int(received_dataframe[11:15])
+                    angular_offset = self.data_lib.bytearray_to_int(received_dataframe[15:])
+                    
+                    data.append([height,perpendicularity,distance,angular_offset])  # Since this is a movement command, collect the data from the received_dataframe. FORMAT : [height,perpendicularity,distance]
                     #Follow Movement Command#
                    
                     #Send Acknowledgement#
@@ -339,18 +431,20 @@ class node_status:
         self.distance = 0
         self.height = 0
         self.perpendicularity = 0 
-        self.yaw = 0  
-        self.coordinate_representation = [0,0]
+        self.angular_offset = 0  
+        self.coordinate_representation = [0,0,0]
         
-    def Update_Location(self,height,distance,perpendicularity):
+    def Update_Location(self,height,perpendicularity,distance,angular_offset):
         
         self.perpendicularity = perpendicularity
         self.height = height
         self.distance = distance 
         self.angle  = math.atan2(self.perpendicularity,self.distance)
+        self.angular_offset = angular_offset
         hypoten_distance = math.hypot(self.distance,self.perpendicularity)
         self.coordinate_representation[0] += self.distance 
         self.coordinate_representation[1] += self.perpendicularity
+        self.coordinate_representation[2]  = self.height 
        # self.coordinate_representation = [(hypoten_distance * math.cos(self.angle),(hypoten_distance * math.sin(self.angle)))];
 
         
