@@ -72,4 +72,7 @@ class Visison_System:
 
     def __init__(self):
 
-        print "Container for Vision System."
+        print "Vision System Initialized."
+
+    
+    

@@ -295,7 +295,7 @@ class coordinator_descision:
                  for rxmessage in rxmessages:
                      if rxmessage[2] == 6:
                          ACKS.append(self.data_lib.bytearray_to_int(rxmessage[0:2]))
-                    
+                         
                  return ACKS 
                                          
                                          
