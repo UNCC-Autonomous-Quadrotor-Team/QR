@@ -184,11 +184,11 @@ with picamera.PiCamera() as camera:
             startTime = time.time()
             camera.capture(stream, format = 'bgr')
             im = stream.array
-            print "capture time: " + str(time.time()-startTime)
+            # print "capture time: " + str(time.time()-startTime)
             contours,imgray = contourSearch(im)
             ledDict = findLeds(contours)
             ledList = sortLeds(ledDict,contours)
-            print "detect time: " + str(time.time()-startTime)
+           # print "detect time: " + str(time.time()-startTime)
     #beacInfo:
     #[0]-> mean x-coordinate of left-side LEDs (float)
     #[1]-> mean y-coordinate of left-side LEDs (float)
@@ -200,22 +200,26 @@ with picamera.PiCamera() as camera:
             beacInfo = ledGroup(ledList) 
 
             distance,offset,angle= calcPosition(beacInfo)
+            print "Distance (cm): " + str(distance)
+            print "Offset:" + str(offset)
+            print "Angle:" + str(angle)
+            
     ###################################################################################
     #displayThings(contours,beacInfo,im)
-            cv.putText(im,'Runtime: '+str(time.time()-startTime)+ ' s.',(10,40),font,0.25,white,1,cv.LINE_AA)
-            cv.line(im,(int(beacInfo[0]),int(beacInfo[1])),(int(beacInfo[2]),int(beacInfo[3])),green,1)
-            cv.putText(im,'Distance: '+str(distance)+' in.',(10,10),font,0.25,white,1,cv.LINE_AA)
-            cv.line(im,(res[0]/2,0),(res[0]/2,res[1]-1),white,1)
-            cv.line(im,(res[0]/2,res[1]/2-10),(int((beacInfo[0]+beacInfo[2])/2),res[1]/2-10),white,1)
-            cv.putText(im,'Offset: '+str(offset)+' in.',(10,20),font,0.25,white,1,cv.LINE_AA)
-            cv.putText(im,'Angle: '+str(angle)+' deg.',(10,30),font,0.25,white,1,cv.LINE_AA)
-            for x in range (0,len(ledList)):
-                cv.putText(im,str(x+1),(ledList[x].loc), font, 0.25,white,1,cv.LINE_AA) 
-            cv.imshow('Display',im)
-            if res == low_res:
-                cv.imshow('Visibility',imgray)
-            cv.waitKey(30)
-            print "display time: " + str(time.time()-startTime)
+#            cv.putText(im,'Runtime: '+str(time.time()-startTime)+ ' s.',(10,40),font,0.25,white,1,cv.LINE_AA)
+ #           cv.line(im,(int(beacInfo[0]),int(beacInfo[1])),(int(beacInfo[2]),int(beacInfo[3])),green,1)
+#            cv.putText(im,'Distance: '+str(distance)+' in.',(10,10),font,0.25,white,1,cv.LINE_AA)
+ #           cv.line(im,(res[0]/2,0),(res[0]/2,res[1]-1),white,1)
+  #          cv.line(im,(res[0]/2,res[1]/2-10),(int((beacInfo[0]+beacInfo[2])/2),res[1]/2-10),white,1)
+   #         cv.putText(im,'Offset: '+str(offset)+' in.',(10,20),font,0.25,white,1,cv.LINE_AA)
+    #        cv.putText(im,'Angle: '+str(angle)+' deg.',(10,30),font,0.25,white,1,cv.LINE_AA)
+     #       for x in range (0,len(ledList)):
+      #          cv.putText(im,str(x+1),(ledList[x].loc), font, 0.25,white,1,cv.LINE_AA) 
+       #     cv.imshow('Display',im)
+        #    if res == low_res:
+         #       cv.imshow('Visibility',imgray)
+          #  cv.waitKey(30)
+           # print "display time: " + str(time.time()-startTime)
     ####################################################################################
             contours[:]=[]
             ledList[:]=[]
