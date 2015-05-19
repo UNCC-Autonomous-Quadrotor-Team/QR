@@ -34,9 +34,9 @@ case $choice in
 	    echo "This directory will be cleaned for a fresh install." 
 	    # clean the directory 
 	    sudo rm -r $DIR
-	    mkdir $DIR opencv #make a new directory 
+	    mkdir $DIR  #make a new directory 
 	else 
-	    mkdir $DIR  opencv # make a new directory
+	    mkdir $DIR  # make a new directory
 	fi 
 
 
@@ -48,10 +48,10 @@ case $choice in
        unzip OpenCV-*
         
      
-
+        
 	echo "Starting Build"
 	echo "------------------------------->" 
-	cd OpenCV-*
+	cd opencv-*
 	mkdir build 
 	cd build 
 #	(cmake -D BUILD_NEW_PYTHON_SUPPORT=ON) || (echo "Build Failed" && break)
@@ -60,14 +60,15 @@ case $choice in
 	(cmake ../)  || (echo "Build Failed!" && break)
 	sudo make install  
 	
-
+	echo "Cleaning up..."
+	(sudo rm  OpenCV-*)  || (echo "Cannot Find Directory") 
 	echo "OpenCV installed correctly "
 	
-	break;;
+	break;
 
     No )  
 	echo "You will need sudo privilliges to peform the environment build"
-	break;; 
+	break; 
 
 esac 
 
