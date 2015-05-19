@@ -67,12 +67,4 @@ class Data_manipulation:
         return " ".join("{:02X}".format(i) for i in byte_msg)
 
 
-
-class Visison_System:
-
-    def __init__(self):
-
-        print "Vision System Initialized."
-
-    
     

@@ -1,4 +1,5 @@
 from auxiliary_library import Data_manipulation
+from PiCameraVisionSystem import VisionSystem 
 import struct
 import Xbee
 import time as t
@@ -15,6 +16,17 @@ class coordinator_descision:
         baudrate = '9600'
 #        device_location = '/dev/ttyUSB0'
         self.xbee_obj = Xbee.Xbee(device_location,baudrate)
+
+
+        #Create object to interface to vision system.
+        resolution = tiny_res
+        contrast = 100
+        exposure_mode = 'off'
+        awb_mode = 'auto'
+        vflip = True
+        iso = 800 
+        
+        self.vision_system = VisionSystem.IRVisionSys(resolution,contrast,esposure_mode,awb_mode,vflip,iso)
         if verbose:
             print self.xbee_obj
 
