@@ -16,6 +16,8 @@ case $choice in
     Yes ) 
 	echo " Initalizing.." 
 	echo "Installing Dependicies..." 
+	sudo apt-get update
+	sudo apt-get upgrade
 	(sudo apt-get install build-essential) ||( break) ;
 
 	(sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev)  ||(break) 

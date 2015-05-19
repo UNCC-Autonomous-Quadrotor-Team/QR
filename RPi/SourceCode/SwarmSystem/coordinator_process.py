@@ -1,7 +1,7 @@
 import time as t
 import Xbee
 import algorithm_library as swarm_alg
-
+import profile 
 #Create a object from the coordination_decision class from the swarm algorithm library so that its functions can be used 
 verbose = 1
 device_location = '/dev/ttyUSB0'
@@ -11,7 +11,7 @@ coord_descision_library = swarm_alg.coordinator_descision(device_location,baudra
 
 
 #Initialize the cluster.
-coord_descision_library.initialize_swarm()
+profile.run('coord_descision_library.initialize_swarm()')
 
 #proceed to move the cluster.
 
