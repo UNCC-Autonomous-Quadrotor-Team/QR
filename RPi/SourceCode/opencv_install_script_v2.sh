@@ -21,7 +21,7 @@ case $ROOTSTATUS in
 
 	#Clean the system from any old debian packages for opencv. 
 	echo "Cleaning the system from any old opencv packages..."
-        apt-get autoremove libopencv-dev python-opencv
+        apt-get autoremove libopencv-dev python-opencv  --assume-yes
 	echo " INITIALIZING SETUP..."
         apt-get update
         apt-get upgrade --assume-yes
