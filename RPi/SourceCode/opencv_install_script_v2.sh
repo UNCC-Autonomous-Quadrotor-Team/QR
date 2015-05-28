@@ -18,10 +18,7 @@ do
 case $choice in 
     Yes )
 	#Elevate privlliges to root. 
-	if[$EUID != 0];then 
-	    sudo "$0" "$@"
-	    exit $?
-	fi 
+        sudo su 
 
 
 	#Clean the system from any old debian packages for opencv. 
