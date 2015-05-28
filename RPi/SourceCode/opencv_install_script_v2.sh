@@ -3,22 +3,20 @@
 
 clear; 
 
-DESCRIPTION="This is a full environment setup for opencv. For questions, contact Terrill Massey @trrllmassey@gmail.com. "
- 
-SUDOWARNING=" This operation will requrie sudo priviliges. Can you obtain sudo priviliges?"
-echo $DESCRIPTION
+DESCRIPTION="This is a full environment setup for opencv. For questions, contact Terrill Massey at trrllmassey@gmail.com. "
+SUDOWARNING="You will need root priviliges to run this script. Please run this script with 'sudo' infront of the command. ex: sudo ./script.sh" 
 LINEBREAK="-----------------------------------------------------" 
+echo $DESCRIPTION
 echo $LINEBREAK
-echo $SUDOWARNING
+
+
+#Determine if there is acess to root priviliges. 
+ROOTSTATUS=$(whoami)
  
-select choice in "Yes" "No" ;
 
-do 
-
-case $choice in 
-    Yes )
-	#Elevate privlliges to root. 
-        sudo su 
+case $ROOTSTATUS in 
+    "root") #We have access to sudo privilliges
+	
 
 
 	#Clean the system from any old debian packages for opencv. 
@@ -80,12 +78,12 @@ case $choice in
 	echo "Getting OpenCV source code from OPENCV repository.." 
 
 	cd opencv 
-       (wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download) ||(echo "Filepath to repositiory is broken.Please update this link or check your connection... " &&  break) 
+       (wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download) ||(echo "Filepath to repositiory is broken.Please update this link or check your connection... " &&  exit) 
        #unzip package 
        echo "Unzipping Package.."
-       (unzip opencv-*) || (echo "failed to unzip package.." && break)
+       (unzip opencv-*) || (echo "failed to unzip package.." && exit)
        #clean directory.
-       (rm *.zip) || (echo "failed to remove zip file.." && break) 
+       (rm *.zip) || (echo "failed to remove zip file.." && exit) 
        # enter opencv directory
        cd opencv* 
              
@@ -98,7 +96,7 @@ case $choice in
         cd build
 	echo "Current Directory"
 	pwd
-       ( cmake -D CMAKE_BUILD_TYPE=RELEASE -D  BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..) ||(echo "cmake Failed.. Check cmake command" && break)
+       ( cmake -D CMAKE_BUILD_TYPE=RELEASE -D  BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..) ||(echo "cmake Failed.. Check cmake command" && exit)
          make 
 	 make install
 	 ldconfig
@@ -107,19 +105,27 @@ case $choice in
 	#Cleanup the working environment.
 	echo "Cleaning environment.."
 	cd ..; cd ..; 
-	(rm -r $DIR) || (echo "Failed to cleanup.. Check the directory that this script resides in and manually remove the opencv directory.")
+	(rm -r $DIR) || (echo "Failed to cleanup.. Check the directory that this script resides in and manually remove the opencv directory."  && exit)
 	echo "Done"
-	break
+	exit
 	;;
 
-    No)  
-	echo "You will need sudo privilliges to peform the environment build"
-	break
+
+
+
+    *)  #We do not have access to sudo priviliges
+
+	#prompt user to run script with sudo
+	echo $SUDOWARNING
+	exit
 	;; 
 
 esac 
 
-done 
+
+
+
+ 
 
 
 
