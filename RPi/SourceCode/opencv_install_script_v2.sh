@@ -25,10 +25,10 @@ case $ROOTSTATUS in
 	echo " INITIALIZING SETUP..."
         apt-get update
         apt-get upgrade --assume-yes
-        apt-get dist-upgrade
-        apt-get autoremove
+        apt-get dist-upgrade --assume-yes
+        apt-get autoremove   --assume-yes
 	#install developer tools and packages just in case it is not on the platform.
-        apt-get install build-essential cmake pkg-config
+        apt-get install build-essential cmake pkg-config  --assume-yes
 	
 	echo "INSTALLING DEPENDICIES..." 
 	echo $LINEBREAK
@@ -44,7 +44,7 @@ case $ROOTSTATUS in
         wget https://bootstrap.pypa.io/get-pip.py
 	python get-pip.py
 	echo "Installing python 2.7-dev.."
-        apt-get install python2.7-dev
+        apt-get install python2.7-dev --assume-yes
 	echo "Installing numpy.."
 	pip install numpy
 	
