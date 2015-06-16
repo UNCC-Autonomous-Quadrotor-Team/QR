@@ -11,7 +11,7 @@ coord_descision_library = swarm_alg.coordinator_descision(device_location,baudra
 
 
 #Initialize the cluster.
-profile.run('coord_descision_library.initialize_swarm()')
+coord_descision_library.initialize_swarm()
 
 #proceed to move the cluster.
 

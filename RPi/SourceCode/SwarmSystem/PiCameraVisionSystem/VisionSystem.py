@@ -69,7 +69,7 @@ class IRVisionSys:
         ret,thresh = cv.threshold(imgray,5,255,0)
         dilation = np.ones((5,5), "uint8")
         imgray = cv.dilate(imgray,dilation)
-        _,contours,_ = cv.findContours(thresh,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
+        contours,_ = cv.findContours(thresh,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
         return(contours,imgray)
 
     def findLeds(self,contours):

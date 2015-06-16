@@ -19,14 +19,14 @@ class coordinator_descision:
 
 
         #Create object to interface to vision system.
-        resolution = tiny_res
+        resolution = 'tiny_res'
         contrast = 100
         exposure_mode = 'off'
         awb_mode = 'auto'
         vflip = True
         iso = 800 
         
-        self.vision_system = VisionSystem.IRVisionSys(resolution,contrast,esposure_mode,awb_mode,vflip,iso)
+        self.vision_system = VisionSystem.IRVisionSys(resolution,contrast,exposure_mode,awb_mode,vflip,iso)
         if verbose:
             print self.xbee_obj
 
@@ -35,7 +35,7 @@ class coordinator_descision:
     #ONLY CALL THIS FUNCTION WHEN THE SWARM IS INITIALIZED 
 
         print "Getting position of all followers in cluster..."
-        received_messages = self.position_data_request(verbose)
+        received_messages = self.position_data_request(0xFFFF,verbose)
         
         if len(received_messages) > 0 : 
             self.detect_potential_collisions(received_messages,verbose)
@@ -110,7 +110,7 @@ class coordinator_descision:
         # cluster_nodes <= list of objects of type node_status. This contains the position and status of each node.
         # nodeid <= list of nodeids of all participating quadcopters in the cluster.
         #initate a movmenet data request to get the nodeids and intital positions
-        received_messages = self.position_data_request(1) # this will return all messages received from the local cluster after page.
+        received_messages = self.position_data_request(0xFFFF,1) # this will return all messages received from the local cluster after page.
         self.extract_data(received_messages,1,"nodeid_only")
         
         try:
@@ -134,17 +134,16 @@ class coordinator_descision:
             print "No quadrotors are detected within the vicinity. Re Run initialization sequence."
             self.initialize_swarm()
     
-    def position_data_request(self,verbose): # Request Position Data from followers
+    def position_data_request(self,destination_address,verbose): # Request Position Data from followers
         #COMMAND IDENTIFIER TYPE:
         #01 - Position Data Request
         #02 - Obstacle Detection Alert
-        #03 - Report to Base Station
+        #03 - Request to join the swarm
         #04 - Report Data
         #05 - Movement Command
         #06 - Report Acknowledgement
         options = 0x00
         cmd_id = 1
-        destination_address = 0xFFFF
         msg = 0
         received_messages =[]
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
@@ -166,38 +165,59 @@ class coordinator_descision:
         
         
         if verbose:
-            print " Detecting possible collisions..."
+            print " Starting Fine-Grain Algorithm and Detecting possible collisions..."
             
-        self.extract_data(rxmessages,verbose,"to_cluster_obj")
+     #   self.extract_data(rxmessages,verbose,"to_cluster_obj")
         
         #Determine Possible collisions. 
        
         #DEBUGGING
-        if verbose:
-            for cluster_node in self.cluster_nodes:
-                if cluster_node != None: # If the Cluster Node exists in the swarm 
-                    print "Cluster Node " + str(cluster_node.nodeid) + " Information"
-                    print "---------------------------------------------------------"
-                    print " Distance:"  + str(cluster_node.distance) 
+       # if verbose:
+        #    for cluster_node in self.cluster_nodes:
+         #       if cluster_node != None: # If the Cluster Node exists in the swarm
+          #          print "Cluster Node " + str(cluster_node.nodeid) + " Information"
+           #         print "---------------------------------------------------------"
+            #        print " Distance:"  + str(cluster_node.distance) 
                     
-                    print " Height:"  + str(cluster_node.height)
+            #        print " Height:"  + str(cluster_node.height)
                     
-                    print " Perpendicularity:"  + str(cluster_node.perpendicularity)
-                    print " "
-                    print " Angular Displacement:" + str(cluster_node.angular_offset)
-                    print " "
-                    print " Coordinate Representation " + str(cluster_node.coordinate_representation)
+            #        print " Perpendicularity:"  + str(cluster_node.perpendicularity)
+            #        print " "
+            #        print " Angular Displacement:" + str(cluster_node.angular_offset)
+            #        print " "
+            #        print " Coordinate Representation " + str(cluster_node.coordinate_representation)
                     
                     
            
-                elif cluster_node == 0:
-                    print "Cluster Node is empty"
+             #   elif cluster_node == 0:
+              #      print "Cluster Node is empty"
 
 
             for cluster_node in self.cluster_nodes:
             # Detection algorithm
                 if cluster_node != None: #make sure the cluster node object is available.  
-                    if cluster_node.nodeid != 0: #make sure the node isn't the coordinator.      
+                    if cluster_node.nodeid != 0: #make sure the node isn't the coordinator.
+                        #request position Data
+                        received_message = self.position_data_request(cluster_node.nodeid,verbose)
+                        self.extract_data(received_message,verbose,"to_cluster_obj")
+                       # t.sleep(0.2)
+                        # store the data into the respective cluster object. 
+                        
+                        #print len(received_message)
+                       # Print position of the node
+                        if verbose:
+                             print "Cluster Node " + str(cluster_node.nodeid) + " Information"
+                             print "---------------------------------------------------------"
+                             print " Distance:"  + str(cluster_node.distance)
+
+                             print " Height:"  + str(cluster_node.height)
+
+                             print " Perpendicularity:"  + str(cluster_node.perpendicularity)
+                             print " "
+                             print " Angular Displacement:" + str(cluster_node.angular_offset)
+                             print " "
+                             print " Coordinate Representation " + str(cluster_node.coordinate_representation)
+
                         message = [25,67,100,50]
                         
                         self.send_movement_command(cluster_node.nodeid,message,verbose)
