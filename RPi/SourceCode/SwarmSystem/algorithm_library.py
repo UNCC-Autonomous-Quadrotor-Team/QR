@@ -34,15 +34,15 @@ class coordinator_descision:
 
     #ONLY CALL THIS FUNCTION WHEN THE SWARM IS INITIALIZED 
 
-        print "Getting position of all followers in cluster..."
-        received_messages = self.position_data_request(0xFFFF,verbose)
+#        print "Getting position of all followers in cluster..."
+ #       received_messages = self.position_data_request(0xFFFF,verbose)
         
-        if len(received_messages) > 0 : 
-            self.detect_potential_collisions(received_messages,verbose)
+  #      if len(received_messages) > 0 : 
+        self.detect_potential_collisions(verbose)
             
-        else:
-            print 'No quadrotors responded.. Re attempting broadcast..'
-            self.move_swarm(verbose)
+      #  else:
+       #     print 'No quadrotors responded.. Re attempting broadcast..'
+        #    self.move_swarm(verbose)
         
         #BEGIN THE PROCESS FOR MOVING THE SWARM
         
@@ -59,7 +59,7 @@ class coordinator_descision:
         self.send_movement_command(0xFFFF,movement_vector,verbose)
         
         #Receive Acknowledgements from the followers.
-        t.sleep(0.3)
+#        t.sleep(0.3)
         rxmessages = self.xbee_obj.receive_packet(verbose)
         received_ack_frames = []
         received_ack_frames = self.extract_data(rxmessages,verbose,"LookForACK")
@@ -70,7 +70,7 @@ class coordinator_descision:
             if verbose:
                 print "No nodes responded. Retransmitting movement vector."
             self.send_movement_command(0xFFFF,movement_vector,verbose)
-            t.sleep(0.3)
+            #t.sleep(0.3)
             rxmessages = self.xbee_obj.receive_packet(verbose)
             received_ack_frames = self.extract_data(rxmessages,verbose,"LookForACK")
             
@@ -85,7 +85,7 @@ class coordinator_descision:
                             print "Acknowledgement not recieved for node" + str(cluster_node.nodeid)
                             print "Re Transmitting movement Vector"
                             self.send_movement_command(cluster_node.nodeid,movement_vector,verbose)
-                            t.sleep(0.3)
+                            #t.sleep(0.3)
                             rxmessages = self.xbee_obj.receive_packet(verbose)
                             if cluster_node.nodeid in self.extract_data(rxmessages,verbose,"LookForACK"):
                                 if verbose:
@@ -147,12 +147,12 @@ class coordinator_descision:
         msg = 0
         received_messages =[]
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
-        t.sleep(0.3)
+        #t.sleep(0.3)
         received_messages = self.xbee_obj.receive_packet(verbose)
         #self.detect_potential_collisions(received_messasges,verbose)
         return received_messages
 
-    def detect_potential_collisions(self,rxmessages,verbose):
+    def detect_potential_collisions(self,verbose):
         
         
         #COMMAND IDENTIFIER TYPE:
@@ -192,7 +192,7 @@ class coordinator_descision:
              #   elif cluster_node == 0:
               #      print "Cluster Node is empty"
 
-
+            starttime = t.time()
             for cluster_node in self.cluster_nodes:
             # Detection algorithm
                 if cluster_node != None: #make sure the cluster node object is available.  
@@ -223,7 +223,7 @@ class coordinator_descision:
                         self.send_movement_command(cluster_node.nodeid,message,verbose)
                         print cluster_node
                         #listen for acknowledgements from the followers
-                        t.sleep(0.3)
+                        #t.sleep(0.3)
                         rxmessages = self.xbee_obj.receive_packet(verbose)
                         
                         print len(rxmessages)
@@ -234,7 +234,7 @@ class coordinator_descision:
                             if verbose: 
                                 print "Acknowledgement not received from node " +  str(cluster_node.nodeid) + " Re Transmitting Movement Command.."
                             self.send_movement_command(cluster_node.nodeid,message,verbose)
-                            t.sleep(0.3)
+                            #t.sleep(0.3)
                             rxmessages = self.xbee_obj.receive_packet(verbose)
                             ACK = self.extract_data(rxmessages,verbose,"LookForACK") #returns a list of acknowledged nodes
                             
@@ -242,7 +242,7 @@ class coordinator_descision:
                                 if verbose:
                                     print "Acknowledgment still not received from node " +  str(cluster_node.nodeid) + " Re Transmitting Movement Commmand.."
                                 self.send_movement_command(cluster_node.nodeid,message,verbose)
-                                t.sleep(0.3)
+                             #   t.sleep(0.3)
                                 rxmessages = self.xbee_obj.receive_packet(verbose)
                                 ACK = self.extract_data(rxmessages,verbose,"LookForACK")
                                 if cluster_node.nodeid not in ACK: # Still no acknowledgement received. The link is considered broken.
@@ -254,7 +254,7 @@ class coordinator_descision:
                     
                         else:
                             print "ACK received from Node " + str(cluster_node.nodeid)
-                        
+            print "Elapsed Time for Fine-Grained Implementation:" + str(t.time() - starttime)
 
     def send_movement_command(self,nodeid,message,verbose):
         #message should be a list of integers or acknowledgement string
@@ -380,7 +380,7 @@ class follower_decision:
 
         # NODEID   COMMANDID   DATA 
         #<2 Bytes> <1 Byte>    <Variable> 
-            t.sleep(0.05)
+        #    t.sleep(0.05)
             received_dataframes = self.xbee_obj.receive_packet(verbose)
             #t.sleep(1)
             #t.sleep(0.5)

@@ -174,7 +174,9 @@ class Xbee:
         self.ValidRxDataFrames = [] # initalize a list to store validated data frames that were received.
         self.receive_buffer =[] #initialize a list variable to append bytes from the physical receive buffer in the UART register.
         self.rxmessages =[]  # initalize a list variable that will store all fully processed messages received. 
-            
+        content_size_in_rx_buffer = 0
+        start_time = 0
+        end_time = 0
            
 
 
@@ -183,7 +185,12 @@ class Xbee:
             ############# READ ALL BYTES FROM THE UART RECEIVE BUFFER ####################
              
             #See how many bytes are in the receive buffer. 
-        content_size_in_rx_buffer = self.ser_conn.inWaiting()
+        start_time = t.time()
+        while ((end_time - start_time) < 0.25):  
+            content_size_in_rx_buffer = self.ser_conn.inWaiting()
+            end_time = t.time()
+            #print  str(end_time-start_time)
+            # wait until .30 seconds to see if something will come.
             
             #for debugging only. This prints out the amount of bytes in buffer.
         if verbose :

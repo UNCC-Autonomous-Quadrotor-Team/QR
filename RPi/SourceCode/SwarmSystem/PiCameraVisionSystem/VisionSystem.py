@@ -212,7 +212,7 @@ class IRVisionSys:
         contours,imgray = self.contourSearch(im)
         ledDict = self.findLeds(contours)
         ledList = self.sortLeds(ledDict,contours)
-        # print "detect time: " + str(time.time()-startTime)
+         #print "Vision System detect time: " + str(time.time()-startTime)
     #beacInfo:
     #[0]-> mean x-coordinate of left-side LEDs (float)
     #[1]-> mean y-coordinate of left-side LEDs (float)
@@ -224,10 +224,10 @@ class IRVisionSys:
         beacInfo = self.ledGroup(ledList) 
             
         distance,offset,angle= self.calcPosition(beacInfo)
+        print "Vision System Detect Time:" + str(time.time() - startTime)
         print "Distance (cm): " + str(distance)
         print "Offset:" + str(offset)
         print "Angle:" + str(angle)
     
-
 
 

@@ -1,0 +1,1398 @@
+<Xbee.Xbee instance at 0x25d8eb8>
+TX Packet:7E 00 0A 01 00 FF FF 00 01 00 00 00 00 FF
+0
+------------------------
+0
+Received Messages
+[]
+No quadrotors are detected within the vicinity. Re Run initialization sequence.
+TX Packet:7E 00 0A 01 00 FF FF 00 01 00 00 00 00 FF
+52
+------------------------
+2
+----------------------
+Validity
+True
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Swarm Cluster Initalized.
+Cluster Size: 3
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [30, 45, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.509061098099
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [60, 90, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.508354902267
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [90, 135, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.760699987411
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [120, 180, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.760681152344
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [150, 225, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.759838104248
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [180, 270, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.762493133545
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [210, 315, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:1.01278591156
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [240, 360, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.76003408432
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [270, 405, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.508239984512
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [300, 450, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.760902881622
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [330, 495, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.760900020599
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [360, 540, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.760432004929
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [390, 585, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+ACK received for Node : 1
+Elapsed Time for Fine-Grained Implementation:0.76099395752
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [390, 585, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.00967884064
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [390, 585, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.506464958191
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [420, 630, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01210904121
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [420, 630, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.506390810013
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [450, 675, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.508190155029
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+26
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+1
+ACK received from Node 1
+Elapsed Time for Fine-Grained Implementation:0.508642911911
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+11
+------------------------
+1
+----------------------
+Validity
+True
+Received Messages
+ --------------------------
+00 01 06 73
+Acknowledged Nodes:[1]
+Acknowledgement received for node 1
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.0093319416
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.00970005989
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01009893417
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01175785065
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.00969290733
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01104593277
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01116394997
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>
+0
+------------------------
+0
+Received Messages
+0
+Acknowledgement not received from node 1 Re Transmitting Movement Command..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Acknowledgment still not received from node 1 Re Transmitting Movement Commmand..
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+0
+------------------------
+0
+Received Messages
+Unsuccessful in completing handshake with node 1
+Elapsed Time for Fine-Grained Implementation:1.01114296913
+moving swarm...
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+Acknowledged Nodes:[]
+No nodes responded. Retransmitting movement vector.
+TX Packet:7E 00 16 01 00 FF FF 00 05 00 00 00 0A FF FF FF F6 00 00 00 0A FF FF FF EC 0B
+0
+------------------------
+0
+Received Messages
+ Starting Fine-Grain Algorithm and Detecting possible collisions...
+TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+0
+------------------------
+0
+Received Messages
+Cluster Node 1 Information
+---------------------------------------------------------
+ Distance:30
+ Height:25
+ Perpendicularity:45
+ 
+ Angular Displacement:52
+ 
+ Coordinate Representation [480, 720, 25]
+TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
+<algorithm_library.node_status instance at 0x25ec030>

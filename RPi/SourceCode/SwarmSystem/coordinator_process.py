@@ -15,5 +15,7 @@ coord_descision_library.initialize_swarm()
 
 #proceed to move the cluster.
 
-coord_descision_library.move_swarm(verbose)
+while 1:
+    coord_descision_library.move_swarm(verbose)
+
 #coord_descision_library.move_swarm(verbose)
