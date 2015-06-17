@@ -119,7 +119,9 @@ class Xbee:
                 # first_byte_msg  = (raw_data_msg & 0xFF00) >> 8 
                 # second_byte_msg = (raw_data_msg & 0x00FF)
                 # data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
-                data_msg =  self.data_lib.int_to_bytearray(raw_data_msg)
+                msg =  self.data_lib.int_to_bytearray(raw_data_msg)
+                byte_padding = self.data_lib.int_to_bytearray(msg) + self.data_lib.int_to_bytearray(msg)+ self.data_lib.int_to_bytearray(msg)
+                data_msg  = byte_padding + msg  
             else:
                 data_msg = raw_data_msg
                 

@@ -144,8 +144,8 @@ class coordinator_descision:
         #06 - Report Acknowledgement
         options = 0x00
         cmd_id = 1
-        msg = [0,0,0,0]
-        received_messages =[]
+        msg = 0
+        received_messages = 0
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
         #t.sleep(0.3)
         received_messages = self.xbee_obj.receive_packet(verbose)
@@ -409,7 +409,7 @@ class follower_decision:
                 if verbose:
                     print "Message Type: Movement Command."
                 cmd_id = 6
-                message = [0,0,0,0]
+                message = 0 
                 coordinator_address = 0x0000
                 self.xbee_obj.SendTransmitRequest(message,coordinator_address,cmd_id,0x00,1)
 
