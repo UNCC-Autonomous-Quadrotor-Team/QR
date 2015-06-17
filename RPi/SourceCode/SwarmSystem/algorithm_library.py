@@ -144,7 +144,7 @@ class coordinator_descision:
         #06 - Report Acknowledgement
         options = 0x00
         cmd_id = 1
-        msg = 0
+        msg = 1
         received_messages = 0
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
         #t.sleep(0.3)
@@ -262,9 +262,6 @@ class coordinator_descision:
         options = 0x00 
         cmd_id = 5
         self.xbee_obj.SendTransmitRequest(message,destination_address,cmd_id,options,verbose)
-        
-    
-        
     def extract_data(self,rxmessages,verbose,extraction_type):
         
     
@@ -402,14 +399,14 @@ class follower_decision:
                     print "Message Type: Position Data Request"
                 position = [25,30,45,52]
                 coordinator_address = 0x0000
-                cmd_id = 4
+                cmd_id = 4 # report data
                 self.xbee_obj.SendTransmitRequest(position,coordinator_address,cmd_id,0x00,1)
             
             elif len(message) > 1 :
                 if verbose:
                     print "Message Type: Movement Command."
-                cmd_id = 6
-                message = 0 
+                cmd_id = 6 # send acknolwedgment
+                message = 10
                 coordinator_address = 0x0000
                 self.xbee_obj.SendTransmitRequest(message,coordinator_address,cmd_id,0x00,1)
 
