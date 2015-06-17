@@ -104,7 +104,7 @@ class Xbee:
             perpendicularity_data  =  self.data_lib.int_to_bytearray(raw_data_msg[1])
             distance_data = self.data_lib.int_to_bytearray(raw_data_msg[2])
             angular_offset_data = self.data_lib.int_to_bytearray(raw_data_msg[3])
-            cluster_id = b('0x0001')
+            cluster_id = bytearray(b'\x00\x01')
           #concatentate position and orientation data into one data msg.
             data_msg = cluster_id + height_data  + perpendicularity_data + distance_data + angular_offset_data
             
@@ -120,7 +120,7 @@ class Xbee:
                 # second_byte_msg = (raw_data_msg & 0x00FF)
                 # data_msg = bytearray.fromhex('{:02X}{:02X}'.format(first_byte_msg,second_byte_msg))
                 msg =  self.data_lib.int_to_bytearray(raw_data_msg)
-                cluster_id = b('0x0001')
+                cluster_id = bytearray(b'\x00\x01')
                 byte_padding = self.data_lib.int_to_bytearray(raw_data_msg) + self.data_lib.int_to_bytearray(raw_data_msg)+ self.data_lib.int_to_bytearray(raw_data_msg)
                 data_msg  =  cluster_id + byte_padding + msg  
             else:
