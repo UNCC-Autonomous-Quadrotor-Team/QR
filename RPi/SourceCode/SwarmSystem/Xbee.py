@@ -186,7 +186,7 @@ class Xbee:
              
             #See how many bytes are in the receive buffer. 
         start_time = t.time()
-        while ((end_time - start_time) < 0.25):  
+        while ((end_time - start_time) < 0.10):  
             content_size_in_rx_buffer = self.ser_conn.inWaiting()
             end_time = t.time()
             #print  str(end_time-start_time)
