@@ -36,16 +36,16 @@ Validity
 True
 Received Messages
  --------------------------
-00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
+00 01 04 00 00 00 08 00 00 00 0A 00 00 00 18 00 00 00 08
 Cluster Node 1 Information
 ---------------------------------------------------------
  Distance:24
  Height:8
  Perpendicularity:10
  
- Angular Displacement:52
+ Angular Displacement:8
  
- Coordinate Representation [30, 45, 25]
+ Coordinate Representation [24, 10, 8]
 TX Packet:7E 00 16 01 00 00 01 00 05 00 00 00 19 00 00 00 43 00 00 00 64 00 00 00 32 06
 <algorithm_library.node_status instance at 0x25ec030>
 11
