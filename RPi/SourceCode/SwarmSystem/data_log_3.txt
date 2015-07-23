@@ -18,7 +18,7 @@ Validity
 True
 Received Messages
  --------------------------
-00 01 04 00 00 00 0A 00 00 00 06 00 00 00 10 00 00 00 00
+00 01 04 00 00 00 0A 00 00 00 0A 00 00 00 18 00 00 00 00
  --------------------------
 00 02 04 00 00 00 04 00 00 00 10 00 00 00 22 00 00 00 02
  --------------------------
@@ -27,7 +27,7 @@ Received Messages
 Swarm Cluster Initalized.
 Cluster Size: 4
 Starting Fine-Grain Algorithm and Detecting possible collisions...
-TX Packet:7E 00 0A 01 00 00 01 00 01 00 00 00 00 FC
+TX Packet:7E 00 16 01 00 FF FF 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FB
 26
 ------------------------
 1
@@ -39,9 +39,9 @@ Received Messages
 00 01 04 00 00 00 19 00 00 00 1E 00 00 00 2D 00 00 00 34
 Cluster Node 1 Information
 ---------------------------------------------------------
- Distance:30
- Height:25
- Perpendicularity:45
+ Distance:24
+ Height:8
+ Perpendicularity:10
  
  Angular Displacement:52
  
