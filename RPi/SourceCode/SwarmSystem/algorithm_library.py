@@ -144,7 +144,7 @@ class coordinator_descision:
         #06 - Report Acknowledgement
         options = 0x00
         cmd_id = 1
-        msg = 0
+        msg = [0,0,0,0]
         received_messages =[]
         self.xbee_obj.SendTransmitRequest(msg,destination_address,cmd_id,options,verbose)
         #t.sleep(0.3)
