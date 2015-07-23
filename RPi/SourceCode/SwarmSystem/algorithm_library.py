@@ -409,7 +409,7 @@ class follower_decision:
                 if verbose:
                     print "Message Type: Movement Command."
                 cmd_id = 6
-                message = 's'
+                message = [0,0,0,0]
                 coordinator_address = 0x0000
                 self.xbee_obj.SendTransmitRequest(message,coordinator_address,cmd_id,0x00,1)
 
