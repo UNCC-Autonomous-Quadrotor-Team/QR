@@ -32,7 +32,7 @@ Swarm Cluster Initalized.
 Cluster Size: 4
 Starting Fine-Grain Algorithm and Detecting possible collisions...
 TX Packet:7E 00 18 01 01 00 01 00 01 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 F6
-26
+28
 ------------------------
 1
 ----------------------
