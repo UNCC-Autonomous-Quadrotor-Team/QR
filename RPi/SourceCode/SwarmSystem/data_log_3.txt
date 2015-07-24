@@ -1,12 +1,13 @@
 <Xbee.Xbee instance at 0x25d8eb8>
-TX Packet:7E 00 16 01 00 FF FF 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FB
+TX Packet:7E 00 18 01 00 FF FF 00 01 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FA
 0
 ------------------------
 0
 Received Messages
 []
 No quadrotors are detected within the vicinity. Re Run initialization sequence.
-TX Packet:7E 00 16 01 00 FF FF 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FB
+TX Packet:7E 00 18 01 00 FF FF 00 01 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FA
+
 78
 ------------------------
 3
@@ -30,7 +31,7 @@ Received Messages
 Swarm Cluster Initalized.
 Cluster Size: 4
 Starting Fine-Grain Algorithm and Detecting possible collisions...
-TX Packet:7E 00 16 01 00 FF FF 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 FB
+TX Packet:7E 00 18 01 01 00 01 00 01 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 F6
 26
 ------------------------
 1
