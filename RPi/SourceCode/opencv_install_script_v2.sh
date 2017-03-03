@@ -1,5 +1,10 @@
 
-# Created by : Terrill Massey 
+# Created by  : Terrill Massey 
+# Description : Install script for opencv and its dependences. The script will remove source code 
+# once installation is complete. 
+#REV:
+# 2015 - Original
+# 3/3/2017 - Modified Header and added verbose comments. 
 
 clear; 
 
@@ -56,7 +61,7 @@ case $ROOTSTATUS in
 
 
 ########################################################################
-# START SOURCE CODE PULL 
+# BUILD BINARIES FROM SOURCE CODE WITH CMAKE  
 ########################################################################
 #check to see if a previous installation exists 
 	echo "INSTALLING OPENCV.."
