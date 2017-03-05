@@ -5,7 +5,7 @@
 #REV:
 # 2015 - Original
 # 3/3/2017 - Modified Header and added verbose comments. 
-
+# 3/4/2017 - Updated dependences for video I/O package pull, and added python 3.0 install. Updated opencv build to  3.0.0
 clear; 
 
 DESCRIPTION="This is a full environment setup for opencv. For questions, contact Terrill Massey at trrllmassey@gmail.com. "
@@ -38,11 +38,12 @@ case $ROOTSTATUS in
 	echo "INSTALLING DEPENDICIES..." 
 	echo $LINEBREAK
 	echo "Installing image I/O packages.."
-        apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev --assume-yes
+        apt-get install libjpeg62-turbo-dev libtiff5-dev libjasper-dev libpng12-dev --assume-yes
 	echo "Installing GTK GUI development library.."
 	apt-get install libgtk2.0-dev --assume-yes
 	echo " Installing video I/O packages.."
         apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev --assume-yes
+		apt-get install libxvidcore-dev libx264-dev
 	echo "Installing optimization libraries.."
         apt-get install libatlas-base-dev gfortran --assume-yes
 	echo " Installing pip.."
@@ -50,6 +51,9 @@ case $ROOTSTATUS in
 	python get-pip.py
 	echo "Installing python 2.7-dev.."
         apt-get install python2.7-dev --assume-yes
+	echo "Installing python 3.0-dev.."
+		apt-get install python3.0-dev --assume-yes 
+		
 	echo "Installing numpy.."
 	pip install numpy
 	
@@ -83,7 +87,7 @@ case $ROOTSTATUS in
 	echo "Getting OpenCV source code from OPENCV repository.." 
 
 	cd opencv 
-       (wget -O opencv-2.4.10.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.10/opencv-2.4.10.zip/download) ||(echo "Filepath to repositiory is broken.Please update this link or check your connection... " &&  exit) 
+       (wget -O opencv-3.2.0.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.2.0/opencv-3.2.0.zip/download) ||(echo "Filepath to repositiory is broken.Please update this link or check your connection... " &&  exit) 
        #unzip package 
        echo "Unzipping Package.."
        (unzip opencv-*) || (echo "failed to unzip package.." && exit)
@@ -103,6 +107,7 @@ case $ROOTSTATUS in
 	pwd
        ( cmake -D CMAKE_BUILD_TYPE=RELEASE -D  BUILD_NEW_PYTHON_SUPPORT=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON  -D BUILD_EXAMPLES=ON ..) ||(echo "cmake Failed.. Check cmake command" && exit)
          make 
+	 
 	 make install
 	 ldconfig
 	echo "OpenCV installed correctly "

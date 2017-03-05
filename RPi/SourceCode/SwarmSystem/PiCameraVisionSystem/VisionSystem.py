@@ -1,4 +1,10 @@
- 
+##################################
+## Name : VisionSystem
+## Description : Library and driver for the IR based vision system. When this library is called, the distance and 2D orientation is reported. 
+## Author : Christopher Wesley
+## Revisions: 
+##  2015 - Original
+
 import numpy as np
 import cv2 as cv
 import operator
