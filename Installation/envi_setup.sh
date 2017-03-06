@@ -66,7 +66,7 @@ function install_opencv () {
 	    echo "Cleaning the system from any old opencv packages..."
             apt-get autoremove libopencv-dev python-opencv  --assume-yes
 	    echo " INITIALIZING SETUP..."
-            apt-get update
+            apt-get update --assume-yes
             apt-get upgrade --assume-yes
             apt-get dist-upgrade --assume-yes
             apt-get autoremove   --assume-yes
@@ -267,8 +267,8 @@ if [ "$clone_repo" == true ]; then
 		    
 		    Yes)
 			#See if github is installed first. If not, install.
-			sudo apt-get update
-			sudo apt-get upgrade
+			sudo apt-get update  --assume-yes
+			sudo apt-get upgrade --assume-yes
 			(command -v git) || (echo "Git isn't installed.Installing now" && sudo apt-get install git --assume-yes) || (echo "Cannot install git. Check connection to debian repo." && exit 3)
 			#Proceed to fetch a  clone from upstream repo.
 			uncc_quadrotor_repo="https://github.com/UNCC-Autonomous-Quadrotor-Team/QR/"
