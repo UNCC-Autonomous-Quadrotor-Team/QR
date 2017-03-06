@@ -269,7 +269,7 @@ if [ "$clone_repo" == true ]; then
 			#See if github is installed first. If not, install.
 			sudo apt-get update
 			sudo apt-get upgrade
-			(command -v git) || (echo "Git isn't installed.Installing now" && sudo apt-get install git) || (echo "Cannot install git. Check connection to debian repo." && exit 3)
+			(command -v git) || (echo "Git isn't installed.Installing now" && sudo apt-get install git --assume-yes) || (echo "Cannot install git. Check connection to debian repo." && exit 3)
 			#Proceed to fetch a  clone from upstream repo.
 			uncc_quadrotor_repo="https://github.com/UNCC-Autonomous-Quadrotor-Team/QR/"
 			(sudo git clone $uncc_quadrotor_repo) ||(echo "Repository is already installed.")
