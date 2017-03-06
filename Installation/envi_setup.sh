@@ -39,7 +39,7 @@ function install_opencv () {
     
     case $ROOTSTATUS in
 	"root") #We have access to sudo privilliges
-	
+	    
 	    #check to see if a previous installation exists 
 	    
 	    src_dir=/etc/
@@ -149,11 +149,11 @@ function install_opencv () {
 			echo "Done.Source code can be found in the opencv directory under $src_dir"
 			;;
 		esac
-	    done
+	    done 
 	    
-		
-	
+	    ;;
 	*)
+	    
 	    #need sudo privilliges
 	    echo "install_opencv function requires sudo privilliges"
 	    ;;
