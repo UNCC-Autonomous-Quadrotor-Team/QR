@@ -143,10 +143,12 @@ function install_opencv () {
 			cd ..; cd ..; cd ..;
 			(sudo rm -r $DIR) || (echo "Failed to cleanup.. Check the directory that this script resides in and manually remove the opencv directory."  && exit)
 			echo "Done cleaning environment"
+			exit
 			;;
 		    Yes)
 			#exit the program.
 			echo "Done.Source code can be found in the opencv directory under $src_dir"
+			exit 
 			;;
 		esac
 	    done 
