@@ -10,6 +10,7 @@
 ###################################################
 #FUNCTION DEFINITIONS.
 ###################################################
+
 function install_opencv () {
 
     # Created by  : Terrill Massey 
@@ -101,7 +102,8 @@ function install_opencv () {
 	    
 	    #(sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev) ||(break) 
 
-
+	    echo "Installing Pi Camera Python Library (python-picamera)"
+	    apt-get install python-picamera
 	    ########################################################################
 	    # BUILD BINARIES FROM SOURCE CODE WITH CMAKE  
 	    ########################################################################
