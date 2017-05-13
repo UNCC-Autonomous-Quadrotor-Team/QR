@@ -21,7 +21,7 @@ function install_opencv () {
     # 3/3/2017 - Modified Header and added verbose comments. 
     # 3/4/2017 - Updated dependences for video I/O package pull, and added python 3.0 install. Updated opencv build to  3.2.0
     # 3/5/2017 - Removed clear command
-
+    # 5/13/2017 - Added command to install python picamera library (python-picamera)
     DESCRIPTION="This is a full environment setup for opencv. For questions, contact Terrill Massey at trrllmassey@gmail.com. "
     SUDOWARNING="You will need root priviliges to run this script. Please run this script with 'sudo' infront of the command. ex: sudo ./script.sh" 
     LINEBREAK="-----------------------------------------------------" 
