@@ -218,6 +218,7 @@ class coordinator_descision:
                              print " "
                              print " Coordinate Representation " + str(cluster_node.coordinate_representation)
 
+						#TODO: Algorithm to check for boundary conditions and send corresponding movement commands.
                         message = [25,67,100,50]
                         
                         self.send_movement_command(cluster_node.nodeid,message,verbose)
@@ -300,6 +301,7 @@ class coordinator_descision:
                      angular_offset = self.data_lib.bytearray_to_int(rxmessage[16:])
 
                      
+									
 
                      #update corresponding cluster node object with correct data
                      
@@ -362,6 +364,17 @@ class follower_decision:
         #Create an Xbee Object. 
     
         self.xbee_obj = Xbee.Xbee(device_location,baudrate)
+		
+		#Create object to interface to vision system.
+        resolution = 'tiny_res'
+        contrast = 100
+        exposure_mode = 'off'
+        awb_mode = 'auto'
+        vflip = True
+        iso = 800 
+        
+        self.vision_system = VisionSystem.IRVisionSys(resolution,contrast,exposure_mode,awb_mode,vflip,iso)
+		
         if verbose:
             print self.xbee_obj
 
@@ -397,7 +410,14 @@ class follower_decision:
             if message == None:
                 if verbose:
                     print "Message Type: Position Data Request"
-                position = [25,30,45,52]
+					
+				# determine position in relation to coordinator. 
+				linear_distance,horizontal_offset,angular_offset = self.vision_system.obtain_beacon_location(verbose)
+                
+				# NOTE: position format : [height,horizontal offset, distance, angular_offset]
+				position = []
+				position.append([10,horizontal_offset,linear_distance,angular_offset]);
+				
                 coordinator_address = 0x0000
                 cmd_id = 4 # report data
                 self.xbee_obj.SendTransmitRequest(position,coordinator_address,cmd_id,0x00,1)

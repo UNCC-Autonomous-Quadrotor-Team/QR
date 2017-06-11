@@ -1,0 +1,8 @@
+Install Instructions
+
+
+1)	Pull the installation file from the QR repo. 
+
+$ wget https://raw.githubusercontent.com/UNCC-Autonomous-Quadrotor-Team/QR/master/Installation/envi_setup.sh ;sudo chmod 777 envi_setup.sh
+
+
